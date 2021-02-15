@@ -1,0 +1,1 @@
+enum OrderType { Buy, Sell }
