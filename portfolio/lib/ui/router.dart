@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/consts/routes.dart';
-import 'package:portfolio/ui/views/home/home_view.dart';
+import 'package:portfolio/ui/views/dashboard/dashboard_view.dart';
+import 'package:portfolio/ui/views/startup/startup_view.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case Routes.home:
-        return MaterialPageRoute(builder: (_) => HomeView());
+      case Routes.dashboard:
+        return MaterialPageRoute(builder: (_) => DashboardView());
+      case Routes.startup:
+        return MaterialPageRoute(builder: (_) => StartupView());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
