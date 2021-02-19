@@ -17,7 +17,7 @@ class DashboardView extends StatelessWidget {
                 IconButton(
                     icon: Icon(Icons.add),
                     onPressed: () {
-                      Navigator.pushNamed(context, Routes.addPortfolio);
+                      Navigator.pushNamed(context, Routes.addOrder);
                     })
               ],
             ),

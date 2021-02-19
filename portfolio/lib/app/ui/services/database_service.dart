@@ -32,10 +32,10 @@ class DatabaseService {
     return orderResults.map((e) => Order.fromJson(e)).toList();
   }
 
-  Future addOrder(
+  Future<int> addOrder(
       {String coinId, int type, String date, num amount, num price}) async {
     try {
-      await _database.insert(
+      return await _database.insert(
           OrderTableName,
           Order(
                   coinId: coinId,
@@ -46,6 +46,7 @@ class DatabaseService {
               .toJson());
     } catch (e) {
       print('Coudn\'t insert the order: $e');
+      return 0;
     }
   }
 
