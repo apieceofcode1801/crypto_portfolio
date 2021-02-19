@@ -10,12 +10,12 @@ GetIt locator = GetIt.instance;
 
 void setupLocator() {
   // services
-  locator.registerLazySingleton(() => DatabaseService());
+  locator.registerSingleton<DatabaseService>(DatabaseService());
   locator.registerLazySingleton(() => NavigationService());
 
   // viewmodels
   locator.registerLazySingleton(() => DashboardViewModel());
   locator.registerLazySingleton(() => StartupViewModel());
-  locator.registerLazySingleton(() => PortfolioModel());
+  locator.registerSingleton<PortfolioModel>(PortfolioModel());
   locator.registerLazySingleton(() => CoinModel());
 }
