@@ -16,7 +16,8 @@ dependencies:
   http:
   sqflite:
   # sqflite_migration_service:
-  # stacked_services:
+  stacked_services:
+  stacked:
   path_provider:
 
 dev_dependencies:

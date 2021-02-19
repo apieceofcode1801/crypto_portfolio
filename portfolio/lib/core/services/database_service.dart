@@ -1,5 +1,6 @@
 import 'package:portfolio/core/datamodels/order.dart';
 import 'package:portfolio/core/datamodels/porfolio.dart';
+import 'package:portfolio/core/services/database_service_helper.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
@@ -11,28 +12,17 @@ class DatabaseService {
   Database _database;
 
   Future initialise() async {
-    final query = '''
-      CREATE TABLE orders(
-    id INTEGER PRIMARY KEY,
-    type INTEGER,
-    coin_id TEXT,
-    date INTEGER,
-    amount REAL,
-    price REAL
-);
-
-CREATE TABLE porfolios {
-    id INTEGER PRIMARY KEY,
-    name TEXT,
-    created_at INTEGER,
-    updated_at INTEGER
-}
-    ''';
-
-    _database =
-        await openDatabase(DB_NAME, version: 1, onCreate: (db, version) async {
-      await db.execute(query);
-    });
+    _database = await openDatabase(
+      DB_NAME,
+      version: 2,
+      onCreate: (db, version) async {
+        await db.execute(createPortfolioTableQuery);
+        await db.execute(createOrderTableQuery);
+      },
+      onUpgrade: (db, oldVersion, newVersion) async {
+        await db.execute(createOrderPortfolioRelationQuery);
+      },
+    );
   }
 
   Future<List<Order>> getOrders() async {
@@ -81,11 +71,9 @@ CREATE TABLE porfolios {
     return portfolioResults.map((e) => Portfolio.fromJson(e)).toList();
   }
 
-  Future addPortfolio(String name) async {
-    String date = DateTime.now().toString();
+  Future addPortfolio(Portfolio portfolio) async {
     try {
-      await _database.insert(PortfolioTableName,
-          Portfolio(name: name, createdAt: date, updatedAt: date).toJson());
+      await _database.insert(PortfolioTableName, portfolio.toJson());
     } catch (e) {
       print('Could not add portfolio');
     }
