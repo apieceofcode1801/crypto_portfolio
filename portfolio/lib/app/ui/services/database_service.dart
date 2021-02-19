@@ -1,8 +1,9 @@
-import 'package:portfolio/core/datamodels/order.dart';
-import 'package:portfolio/core/datamodels/porfolio.dart';
-import 'package:portfolio/core/services/database_service_helper.dart';
+import 'package:portfolio/app/datamodels/order.dart';
+import 'package:portfolio/app/datamodels/porfolio.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
+
+import 'database_service_helper.dart';
 
 const String DB_NAME = 'portfolio.sqlite';
 const String OrderTableName = 'orders';

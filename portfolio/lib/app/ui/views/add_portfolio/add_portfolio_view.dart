@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/changenotifiers/portfolio_model.dart';
-import 'package:portfolio/ui/views/base/base_view.dart';
+import 'package:portfolio/app/models/portfolio_model.dart';
+import 'package:portfolio/core/base_view.dart';
 
 class AddPortfolioView extends StatelessWidget {
   TextEditingController _nameController = TextEditingController();

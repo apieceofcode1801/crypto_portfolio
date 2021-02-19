@@ -1,5 +1,5 @@
-import 'package:portfolio/core/datamodels/porfolio.dart';
-import 'package:portfolio/ui/views/base/base_viewmodel.dart';
+import 'package:portfolio/app/datamodels/porfolio.dart';
+import 'package:portfolio/core/base_viewmodel.dart';
 
 class DashboardViewModel extends BaseViewModel {
   Portfolio _currentPortfolio;

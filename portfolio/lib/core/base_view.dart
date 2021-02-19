@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/ui/views/base/base_viewmodel.dart';
+import 'package:portfolio/locator.dart';
 import 'package:provider/provider.dart';
 
-import '../../../locator.dart';
+import 'base_viewmodel.dart';
 
 class BaseView<T extends BaseViewModel> extends StatefulWidget {
   final Widget Function(BuildContext context, T model, Widget child) builder;

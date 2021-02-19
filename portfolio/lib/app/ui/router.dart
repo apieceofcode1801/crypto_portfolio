@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/consts/routes.dart';
-import 'package:portfolio/ui/views/add_portfolio/add_portfolio_view.dart';
-import 'package:portfolio/ui/views/dashboard/dashboard_view.dart';
-import 'package:portfolio/ui/views/startup/startup_view.dart';
+import 'package:portfolio/app/consts/routes.dart';
+import 'package:portfolio/app/ui/views/add_portfolio/add_portfolio_view.dart';
+import 'package:portfolio/app/ui/views/dashboard/dashboard_view.dart';
+import 'package:portfolio/app/ui/views/startup/startup_view.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {

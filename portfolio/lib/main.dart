@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/ui/router.dart' as router;
+import 'package:portfolio/app/ui/router.dart' as router;
 import 'package:portfolio/locator.dart';
 
 void main() {

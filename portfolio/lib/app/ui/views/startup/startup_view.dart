@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/consts/routes.dart';
+import 'package:portfolio/app/consts/routes.dart';
+import 'package:portfolio/app/ui/views/startup/startup_viewmodel.dart';
+import 'package:portfolio/core/base_view.dart';
 import 'package:portfolio/core/enums/viewstate.dart';
-import 'package:portfolio/ui/views/base/base_view.dart';
-import 'package:portfolio/ui/views/startup/startup_viewmodel.dart';
 
 class StartupView extends StatelessWidget {
   @override

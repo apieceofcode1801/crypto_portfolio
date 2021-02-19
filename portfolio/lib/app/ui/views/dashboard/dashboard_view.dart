@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/changenotifiers/portfolio_model.dart';
-import 'package:portfolio/core/consts/routes.dart';
+import 'package:portfolio/app/consts/routes.dart';
+import 'package:portfolio/app/models/portfolio_model.dart';
+import 'package:portfolio/app/ui/custom_widgets/portfolio_title_view.dart';
+import 'package:portfolio/core/base_view.dart';
 import 'package:portfolio/core/enums/viewstate.dart';
-import 'package:portfolio/ui/custom_widgets/portfolio_title_view.dart';
-import 'package:portfolio/ui/views/base/base_view.dart';
 
 class DashboardView extends StatelessWidget {
   @override

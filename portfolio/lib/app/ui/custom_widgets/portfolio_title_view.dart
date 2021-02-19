@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/datamodels/porfolio.dart';
+import 'package:portfolio/app/datamodels/porfolio.dart';
 
 class PortfolioTitleView extends StatelessWidget {
   final Portfolio portfolio;
