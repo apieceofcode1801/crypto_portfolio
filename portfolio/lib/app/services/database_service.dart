@@ -13,37 +13,27 @@ class DatabaseService {
   Database _database;
 
   Future initialise() async {
-    _database = await openDatabase(
-      DB_NAME,
-      version: 2,
-      onCreate: (db, version) async {
-        await db.execute(createPortfolioTableQuery);
-        await db.execute(createOrderTableQuery);
-      },
-      onUpgrade: (db, oldVersion, newVersion) async {
-        await db.execute(createOrderPortfolioRelationQuery);
-      },
-    );
+    _database =
+        await openDatabase(DB_NAME, version: 1, onCreate: (db, version) async {
+      await db.execute(createPortfolioTableQuery);
+      await db.execute(createOrderTableQuery);
+    });
   }
 
   Future<List<Order>> getOrders() async {
     List<Map> orderResults = await _database.query(OrderTableName);
-
     return orderResults.map((e) => Order.fromJson(e)).toList();
   }
 
-  Future<int> addOrder(
-      {String coinId, int type, String date, num amount, num price}) async {
+  Future<List<Order>> getOrdersOfPortfolio(int id) async {
+    List<Map> results = await _database
+        .rawQuery('SELECT * FROM $OrderTableName WHERE portfolio_id = $id');
+    return results.map((e) => Order.fromJson(e)).toList();
+  }
+
+  Future<int> addOrder(Order order) async {
     try {
-      return await _database.insert(
-          OrderTableName,
-          Order(
-                  coinId: coinId,
-                  type: type,
-                  date: date,
-                  amount: amount,
-                  price: price)
-              .toJson());
+      return await _database.insert(OrderTableName, order.toJson());
     } catch (e) {
       print('Coudn\'t insert the order: $e');
       return 0;
@@ -73,7 +63,7 @@ class DatabaseService {
     return portfolioResults.map((e) => Portfolio.fromJson(e)).toList();
   }
 
-  Future addPortfolio(Portfolio portfolio) async {
+  Future addPortfolio({Portfolio portfolio}) async {
     try {
       await _database.insert(PortfolioTableName, portfolio.toJson());
     } catch (e) {

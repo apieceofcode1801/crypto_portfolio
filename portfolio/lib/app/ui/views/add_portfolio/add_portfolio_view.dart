@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/app/models/portfolio_model.dart';
+import 'package:portfolio/app/ui/views/add_portfolio/add_portfolio_viewmodel.dart';
 import 'package:portfolio/core/base_view.dart';
 
 class AddPortfolioView extends StatelessWidget {
-  TextEditingController _nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return BaseView<PortfolioModel>(
+    return BaseView<AddPortfolioViewModel>(
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(
@@ -19,7 +18,7 @@ class AddPortfolioView extends StatelessWidget {
                 child: ListView(
                   children: [
                     TextFormField(
-                      controller: _nameController,
+                      controller: model.nameController,
                       decoration: InputDecoration(
                         hintText: 'Name',
                       ),
@@ -29,11 +28,8 @@ class AddPortfolioView extends StatelessWidget {
                     TextButton(
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
-                            final result =
-                                await model.addPortfolio(_nameController.text);
-                            if (result) {
-                              Navigator.pop(context);
-                            }
+                            await model.addPortfolio();
+                            Navigator.pop(context);
                           }
                         },
                         child: const Text('Submit'))

@@ -1,7 +1,7 @@
-import 'package:portfolio/app/ui/services/database_service.dart';
+import 'package:portfolio/app/services/database_service.dart';
 import 'package:portfolio/core/base_viewmodel.dart';
 import 'package:portfolio/core/enums/viewstate.dart';
-import 'package:portfolio/locator.dart';
+import 'package:portfolio/app/locator.dart';
 
 class StartupViewModel extends BaseViewModel {
   DatabaseService _databaseService = locator<DatabaseService>();

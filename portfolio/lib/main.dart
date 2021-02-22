@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/app/ui/router.dart' as router;
-import 'package:portfolio/locator.dart';
+import 'package:portfolio/app/locator.dart';
 
 void main() {
   setupLocator();

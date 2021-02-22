@@ -1,18 +1,17 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 enum HTTP_METHOD { GET, POST, PUT, DELETE, HEAD, PATH }
 
-mixin ApiConfig {
-  String baseURL = 'https://api.coingecko.com/api/v3/';
-}
-
-class BaseNetworkAdapter with ApiConfig {
+class BaseNetworkAdapter {
   Map<String, String> headers = {"Content-Type": "application/json"};
   Map<String, dynamic> parameters = Map();
   Map<String, String> paths = Map();
   Map<String, dynamic> body = Map();
   var method = HTTP_METHOD.GET;
+  final String baseURL;
+  BaseNetworkAdapter({@required this.baseURL});
 
   List<http.MultipartFile> listMultiPartFile = [];
 
@@ -103,13 +102,10 @@ class BaseNetworkAdapter with ApiConfig {
   }
 
   String processParameters() {
-    var buffer = StringBuffer();
-    parameters.forEach((key, value) {
-      if (null != value) {
-        buffer.write('$key=$value');
-      }
-    });
-    return buffer.toString();
+    return parameters.entries
+        .map((entry) => '${entry.key}=${entry.value}')
+        .toList()
+        .join('&');
   }
 
   void addParameter(String key, String value) {

@@ -1,14 +1,16 @@
-String createPortfolioTableQuery = '''
+String createOrderTableQuery = '''
       CREATE TABLE orders(
     id INTEGER PRIMARY KEY,
     type INTEGER,
     coin_id TEXT,
+    coin_symbol TEXT,
     date INTEGER,
     amount REAL,
-    price REAL
+    price REAL,
+    portfolio_id INTEGER
 );
 ''';
-String createOrderTableQuery = '''
+String createPortfolioTableQuery = '''
 CREATE TABLE portfolios (
     id INTEGER PRIMARY KEY,
     name TEXT,
@@ -16,11 +18,3 @@ CREATE TABLE portfolios (
     updated_at INTEGER
 );
     ''';
-
-String createOrderPortfolioRelationQuery = '''
-CREATE TABLE order_portfolio(
-  id INTEGER PRIMARY KEY,
-  order_id INTEGER,
-  portfolio_id INTEGER
-);
-''';

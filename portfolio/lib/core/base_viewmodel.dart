@@ -10,4 +10,10 @@ class BaseViewModel extends ChangeNotifier {
     _state = viewState;
     notifyListeners();
   }
+
+  void reload() {
+    notifyListeners();
+  }
+
+  void onDispose() {}
 }

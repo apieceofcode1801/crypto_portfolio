@@ -1,8 +1,8 @@
 import 'package:portfolio/app/datamodels/coin.dart';
-import 'package:portfolio/app/ui/services/api_service.dart';
+import 'package:portfolio/app/services/api_service.dart';
 import 'package:portfolio/core/base_viewmodel.dart';
 import 'package:portfolio/core/enums/viewstate.dart';
-import 'package:portfolio/locator.dart';
+import 'package:portfolio/app/locator.dart';
 
 class CoinListViewModel extends BaseViewModel {
   List<Coin> _coins = [];
