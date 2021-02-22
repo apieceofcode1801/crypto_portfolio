@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:portfolio/app/models/portfolio_model.dart';
 import 'package:portfolio/app/ui/custom_widgets/assets_chart/assets_chart_viewmodel.dart';
 import 'package:portfolio/app/ui/custom_widgets/coin_list/coin_list_viewmodel.dart';
 import 'package:portfolio/app/ui/custom_widgets/porfolio_asset/portfolio_asset_viewmodel.dart';
@@ -22,7 +21,6 @@ void setupLocator() {
   // viewmodels
   locator.registerLazySingleton(() => DashboardViewModel());
   locator.registerLazySingleton(() => StartupViewModel());
-  locator.registerSingleton<PortfolioModel>(PortfolioModel());
   locator.registerFactory(() => EditOrderViewModel());
   locator.registerFactory(() => CoinListViewModel());
   locator.registerFactory(() => OrderListViewModel());

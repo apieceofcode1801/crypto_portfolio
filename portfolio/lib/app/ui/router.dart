@@ -16,7 +16,10 @@ class Router {
       case Routes.startup:
         return MaterialPageRoute(builder: (_) => StartupView());
       case Routes.addPortfolio:
-        return MaterialPageRoute(builder: (_) => AddPortfolioView());
+        return MaterialPageRoute(
+            builder: (_) => AddPortfolioView(
+                  portfolio: settings.arguments,
+                ));
       case Routes.updateOrder:
         return MaterialPageRoute(builder: (_) {
           if (settings.arguments is int) {

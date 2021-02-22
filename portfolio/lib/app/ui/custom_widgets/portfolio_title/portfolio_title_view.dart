@@ -32,6 +32,9 @@ class PortfolioTitleView extends StatelessWidget {
       onModelReady: (model) {
         model.loadPortfolio(portfolio);
       },
+      didUpdateWidget: (model) {
+        model.loadPortfolio(portfolio);
+      },
     );
   }
 }

@@ -50,7 +50,11 @@ class DatabaseService {
   }
 
   Future deleteOrder({int id}) async {
-    await _database.delete(OrderTableName, where: 'id = ?', whereArgs: [id]);
+    try {
+      await _database.delete(OrderTableName, where: 'id = ?', whereArgs: [id]);
+    } catch (e) {
+      print('Could not delete order: $e');
+    }
   }
 
   Future<List<Portfolio>> getPortfolios() async {
@@ -66,12 +70,23 @@ class DatabaseService {
     }
   }
 
-  Future updatePortfolio(int id, String name) async {
+  Future updatePortfolio(int id, Portfolio portfolio) async {
     try {
-      await _database.update(
-          PortfolioTableName, {'name': name, 'updated_at': DateTime.now()});
+      await _database.update(PortfolioTableName, portfolio.toJson(),
+          where: 'id = ?', whereArgs: [id]);
     } catch (e) {
       print('Could not update portfolio: $e');
+    }
+  }
+
+  Future deletePortfolio(int id) async {
+    try {
+      await _database
+          .delete(PortfolioTableName, where: 'id = ?', whereArgs: [id]);
+      await _database
+          .delete(OrderTableName, where: 'portfolio_id', whereArgs: [id]);
+    } catch (e) {
+      print('Could not delete portfolio: $e');
     }
   }
 }

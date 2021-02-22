@@ -21,20 +21,23 @@ class EditOrderView extends StatelessWidget {
           title: order == null
               ? Text('Add your new order')
               : Text('Edit your order'),
-          actions: [
-            IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () async {
-                  showAlertDialog(
-                      context: context,
-                      title: 'Confirmation',
-                      content: 'Are you sure you want to delete this order?',
-                      onContinue: () async {
-                        await model.deleteOrder();
-                        Navigator.pop(context);
-                      });
-                })
-          ],
+          actions: order == null
+              ? []
+              : [
+                  IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () async {
+                        showAlertDialog(
+                            context: context,
+                            title: 'Confirmation',
+                            content:
+                                'Are you sure you want to delete this order?',
+                            onContinue: () async {
+                              await model.deleteOrder();
+                              Navigator.pop(context);
+                            });
+                      })
+                ],
         ),
         body: model.state == ViewState.Busy
             ? Center(

@@ -16,12 +16,13 @@ class DashboardView extends StatelessWidget {
               IconButton(
                   icon: Icon(Icons.refresh),
                   onPressed: () {
-                    model.loadData();
+                    _reloadData(context, model);
                   }),
               IconButton(
                   icon: Icon(Icons.add),
-                  onPressed: () {
-                    Navigator.pushNamed(context, Routes.addPortfolio);
+                  onPressed: () async {
+                    await Navigator.pushNamed(context, Routes.addPortfolio);
+                    _reloadData(context, model);
                   }),
             ],
           ),
@@ -32,7 +33,7 @@ class DashboardView extends StatelessWidget {
                   height: 150,
                   child: PageView.builder(
                     onPageChanged: (index) {
-                      model.updateCurrentPortfolio(model.portfolios[index]);
+                      model.updateCurrentPortfolio(index);
                     },
                     itemBuilder: (context, index) {
                       final portfolio = model.portfolios[index];
@@ -49,11 +50,24 @@ class DashboardView extends StatelessWidget {
                               onPressed: () async {
                                 await Navigator.pushNamed(
                                     context, Routes.orderList,
-                                    arguments: model.currentPortfolio);
-                                model.loadData();
+                                    arguments: portfolio);
+                                _reloadData(context, model);
                               },
                             ),
                             bottom: 8,
+                            right: 8,
+                          ),
+                          Positioned(
+                            child: IconButton(
+                              icon: Icon(Icons.edit),
+                              onPressed: () async {
+                                await Navigator.pushNamed(
+                                    context, Routes.addPortfolio,
+                                    arguments: portfolio);
+                                _reloadData(context, model);
+                              },
+                            ),
+                            top: 8,
                             right: 8,
                           )
                         ],
@@ -70,12 +84,17 @@ class DashboardView extends StatelessWidget {
                   : Container(),
             ],
           ))),
-      onModelReady: (model) async {
-        await model.loadData();
-        if (model.portfolios.isEmpty) {
-          Navigator.pushNamed(context, Routes.addPortfolio);
-        }
+      onModelReady: (model) {
+        _reloadData(context, model);
       },
     );
+  }
+
+  void _reloadData(context, model) async {
+    await model.loadData();
+    if (model.portfolios.isEmpty) {
+      await Navigator.pushNamed(context, Routes.addPortfolio);
+      model.loadData();
+    }
   }
 }

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/app/datamodels/porfolio.dart';
+import 'package:portfolio/app/ui/helpers/ui_helpers.dart';
 import 'package:portfolio/app/ui/views/add_portfolio/add_portfolio_viewmodel.dart';
 import 'package:portfolio/core/base_view.dart';
 
 class AddPortfolioView extends StatelessWidget {
+  final Portfolio portfolio;
+  AddPortfolioView({this.portfolio});
+
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -10,7 +15,26 @@ class AddPortfolioView extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Add your portfolio'),
+            title: portfolio != null
+                ? Text('Update your portfolio')
+                : Text('Add your portfolio'),
+            actions: portfolio != null
+                ? [
+                    IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          showAlertDialog(
+                              context: context,
+                              title:
+                                  'Are you sure you want to delete this portfolio?',
+                              content: 'Press continue to perform',
+                              onContinue: () async {
+                                await model.deletePortfolio();
+                                Navigator.pop(context);
+                              });
+                        })
+                  ]
+                : [],
           ),
           body: Container(
             child: Form(
@@ -28,7 +52,7 @@ class AddPortfolioView extends StatelessWidget {
                     TextButton(
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
-                            await model.addPortfolio();
+                            await model.submitPortfolio();
                             Navigator.pop(context);
                           }
                         },
@@ -37,6 +61,9 @@ class AddPortfolioView extends StatelessWidget {
                 )),
           ),
         );
+      },
+      onModelReady: (model) {
+        model.setPortfolio(portfolio);
       },
     );
   }

@@ -21,4 +21,12 @@ class Portfolio {
     data['updated_at'] = updatedAt;
     return data;
   }
+
+  Portfolio copy({String name, String createdAt, String updatedAt}) {
+    return Portfolio(
+        id: this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
 }
