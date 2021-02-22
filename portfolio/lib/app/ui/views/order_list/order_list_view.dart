@@ -21,7 +21,7 @@ class OrderListView extends StatelessWidget {
                 IconButton(
                     icon: Icon(Icons.add),
                     onPressed: () async {
-                      await Navigator.pushNamed(context, Routes.addOrder,
+                      await Navigator.pushNamed(context, Routes.updateOrder,
                           arguments: portfolio.id);
                       model.loadOrders(portfolio.id);
                     })
@@ -74,8 +74,17 @@ class OrderListView extends StatelessWidget {
                       Expanded(
                         child: ListView.builder(
                           itemBuilder: (context, index) {
-                            return OrderListItemView(
-                              order: model.orders[index],
+                            final order = model.orders[index];
+                            return GestureDetector(
+                              child: OrderListItemView(
+                                order: order,
+                              ),
+                              onTap: () async {
+                                await Navigator.pushNamed(
+                                    context, Routes.updateOrder,
+                                    arguments: order);
+                                model.loadOrders(portfolio.id);
+                              },
                             );
                           },
                           itemCount: model.orders.length,

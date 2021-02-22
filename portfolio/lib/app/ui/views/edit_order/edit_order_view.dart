@@ -1,24 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/app/datamodels/coin.dart';
+import 'package:portfolio/app/datamodels/order.dart';
 import 'package:portfolio/app/ui/custom_widgets/coin_list/coin_list_view.dart';
-import 'package:portfolio/app/ui/views/add_order/add_order_viewmodel.dart';
+import 'package:portfolio/app/ui/helpers/ui_helpers.dart';
+import 'package:portfolio/app/ui/views/edit_order/edit_order_viewmodel.dart';
 import 'package:portfolio/core/base_view.dart';
 import 'package:portfolio/core/enums/viewstate.dart';
 
-class AddOrderView extends StatelessWidget {
+class EditOrderView extends StatelessWidget {
   final int portfolioId;
-  AddOrderView({
-    Key key,
-    this.portfolioId,
-  }) : super(key: key);
+  final Order order;
+  EditOrderView({Key key, this.portfolioId, this.order}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return BaseView<AddOrderViewModel>(
+    return BaseView<EditOrderViewModel>(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: Text('Add your new order'),
+          title: order == null
+              ? Text('Add your new order')
+              : Text('Edit your order'),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: () async {
+                  showAlertDialog(
+                      context: context,
+                      title: 'Confirmation',
+                      content: 'Are you sure you want to delete this order?',
+                      onContinue: () async {
+                        await model.deleteOrder();
+                        Navigator.pop(context);
+                      });
+                })
+          ],
         ),
         body: model.state == ViewState.Busy
             ? Center(
@@ -28,6 +44,22 @@ class AddOrderView extends StatelessWidget {
                 key: _formKey,
                 child: ListView(
                   children: [
+                    TextFormField(
+                      controller: model.dateController,
+                      readOnly: true,
+                      decoration: InputDecoration(hintText: 'Select date'),
+                      onTap: () async {
+                        DateTime selectedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate:
+                                DateTime.now().subtract(Duration(days: 3650)),
+                            lastDate: DateTime.now());
+                        if (selectedDate != null) {
+                          model.setSelectedDate(selectedDate);
+                        }
+                      },
+                    ),
                     TextFormField(
                       readOnly: true,
                       decoration: InputDecoration(hintText: 'Select coin'),
@@ -46,6 +78,7 @@ class AddOrderView extends StatelessWidget {
                       height: 16,
                     ),
                     DropdownButtonFormField(
+                      value: model.orderType,
                       items: [
                         DropdownMenuItem(
                           child: Text('Buy'),
@@ -88,7 +121,7 @@ class AddOrderView extends StatelessWidget {
                     TextButton(
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
-                            await model.addOrder(portfolioId);
+                            await model.submitOrder();
                             Navigator.pop(context);
                           }
                         },
@@ -97,6 +130,13 @@ class AddOrderView extends StatelessWidget {
                 ),
               ),
       ),
+      onModelReady: (model) {
+        if (order != null) {
+          model.setOrder(order);
+        } else {
+          model.setPortfolioId(portfolioId);
+        }
+      },
     );
   }
 }

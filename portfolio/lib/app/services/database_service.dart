@@ -40,22 +40,17 @@ class DatabaseService {
     }
   }
 
-  Future updateOrder(
-      {int id, int type, DateTime date, double amount, double price}) async {
+  Future updateOrder({int id, Order order}) async {
     try {
-      await _database.update(
-          OrderTableName,
-          {
-            'type': type,
-            'date': date,
-            'amount': amount,
-            'price': price,
-          },
-          where: 'id = ?',
-          whereArgs: [id]);
+      await _database.update(OrderTableName, order.toJson(),
+          where: 'id = ?', whereArgs: [id]);
     } catch (e) {
       print('Could not update order: $e');
     }
+  }
+
+  Future deleteOrder({int id}) async {
+    await _database.delete(OrderTableName, where: 'id = ?', whereArgs: [id]);
   }
 
   Future<List<Portfolio>> getPortfolios() async {

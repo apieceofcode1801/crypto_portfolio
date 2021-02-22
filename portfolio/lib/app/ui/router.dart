@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/app/consts/routes.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
 import 'package:portfolio/app/ui/custom_widgets/coin_list/coin_list_view.dart';
-import 'package:portfolio/app/ui/views/add_order/add_order_view.dart';
+import 'package:portfolio/app/ui/views/edit_order/edit_order_view.dart';
 import 'package:portfolio/app/ui/views/add_portfolio/add_portfolio_view.dart';
 import 'package:portfolio/app/ui/views/dashboard/dashboard_view.dart';
 import 'package:portfolio/app/ui/views/order_list/order_list_view.dart';
@@ -17,12 +17,18 @@ class Router {
         return MaterialPageRoute(builder: (_) => StartupView());
       case Routes.addPortfolio:
         return MaterialPageRoute(builder: (_) => AddPortfolioView());
-      case Routes.addOrder:
+      case Routes.updateOrder:
         return MaterialPageRoute(builder: (_) {
-          final int portfolioId = settings.arguments;
-          return AddOrderView(
-            portfolioId: portfolioId,
-          );
+          if (settings.arguments is int) {
+            final int portfolioId = settings.arguments;
+            return EditOrderView(
+              portfolioId: portfolioId,
+            );
+          } else {
+            return EditOrderView(
+              order: settings.arguments,
+            );
+          }
         });
       case Routes.coinList:
         return MaterialPageRoute(builder: (_) => CoinListView());

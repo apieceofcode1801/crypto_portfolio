@@ -24,12 +24,15 @@ class PortfolioAssetView extends StatelessWidget {
                 padding: EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    Container(
-                      height: 2 * MediaQuery.of(context).size.width / 3 - 32,
-                      child: AssetsChartView(
-                        assets: model.assets,
-                      ),
-                    ),
+                    model.assets.isEmpty
+                        ? Container()
+                        : Container(
+                            height:
+                                2 * MediaQuery.of(context).size.width / 3 - 32,
+                            child: AssetsChartView(
+                              assets: model.assets,
+                            ),
+                          ),
                     const SizedBox(
                       height: 32,
                     ),

@@ -47,7 +47,7 @@ class Order {
 
   Order copy(
       {int id,
-      bool type,
+      int type,
       String coinId,
       String coinSymbol,
       String date,
