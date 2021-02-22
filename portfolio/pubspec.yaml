@@ -16,9 +16,9 @@ dependencies:
   http:
   sqflite:
   # sqflite_migration_service:
-  stacked_services:
-  stacked:
   path_provider:
+  #ui
+  fl_chart:
 
 dev_dependencies:
   flutter_test:

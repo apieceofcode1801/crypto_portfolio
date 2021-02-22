@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:portfolio/app/datamodels/porfolio.dart';
+import 'package:portfolio/app/ui/custom_widgets/assets_chart/assets_chart_view.dart';
 import 'package:portfolio/app/ui/custom_widgets/center_loading_view.dart';
 import 'package:portfolio/app/ui/custom_widgets/porfolio_asset/portfolio_asset_viewmodel.dart';
 import 'package:portfolio/core/base_view.dart';
@@ -19,18 +20,22 @@ class PortfolioAssetView extends StatelessWidget {
       builder: (context, model, child) {
         return model.state == ViewState.Busy
             ? CenterLoadingView()
-            : Column(
-                children: [
-                  _titleView,
-                  Expanded(
-                      child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      final asset = model.assets[index];
-                      return _assetRow(asset);
-                    },
-                    itemCount: model.assets.length,
-                  )),
-                ],
+            : Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 2 * MediaQuery.of(context).size.width / 3 - 32,
+                      child: AssetsChartView(
+                        assets: model.assets,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    Expanded(child: AssetTableView(assets: model.assets))
+                  ],
+                ),
               );
       },
       onModelReady: (model) {
@@ -41,32 +46,88 @@ class PortfolioAssetView extends StatelessWidget {
       },
     );
   }
+}
 
-  final Widget _titleView = Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    mainAxisSize: MainAxisSize.max,
-    children: [
-      Expanded(child: Text('Coin')),
-      Expanded(child: Text('Amount')),
-      Expanded(child: Text('Avg. price')),
-      Expanded(child: Text('Total')),
-    ],
-  );
+class AssetTableView extends StatelessWidget {
+  final List<Asset> assets;
+  const AssetTableView({@required this.assets});
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          height: 44,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                  child: Text(
+                'Coin',
+                style: TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              )),
+              Expanded(
+                  child: Text(
+                'Amount',
+                style: TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              )),
+              Expanded(
+                  child: Text(
+                'Avg. price',
+                style: TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              )),
+              Expanded(
+                  child: Text(
+                'Total',
+                style: TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              )),
+            ],
+          ),
+        ),
+        Expanded(
+            child: ListView.builder(
+          itemBuilder: (context, index) {
+            final asset = assets[index];
+            return _assetRow(asset);
+          },
+          itemCount: assets.length,
+        ))
+      ],
+    );
+  }
 
   Widget _assetRow(Asset asset) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       mainAxisSize: MainAxisSize.max,
       children: [
-        Expanded(child: Text('${asset.coinSymbol}')),
         Expanded(
-          child: Text('${asset.amount}'),
+            child: Text(
+          '${asset.coinSymbol}',
+          textAlign: TextAlign.center,
+        )),
+        Expanded(
+          child: Text(
+            '${asset.amount}',
+            textAlign: TextAlign.center,
+          ),
         ),
         Expanded(
-          child: Text('${asset.avgPrice}'),
+          child: Text(
+            '${asset.avgPrice}',
+            textAlign: TextAlign.center,
+          ),
         ),
         Expanded(
-          child: Text('${asset.total}'),
+          child: Text(
+            '${asset.total}',
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );
