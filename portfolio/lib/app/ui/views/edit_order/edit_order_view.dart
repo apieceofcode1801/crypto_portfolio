@@ -62,6 +62,8 @@ class EditOrderView extends StatelessWidget {
                           model.setSelectedDate(selectedDate);
                         }
                       },
+                      validator: (text) =>
+                          text.isEmpty ? 'Please select date' : null,
                     ),
                     TextFormField(
                       readOnly: true,
