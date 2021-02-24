@@ -1,8 +1,7 @@
 import 'package:get_it/get_it.dart';
-import 'package:portfolio/app/ui/custom_widgets/assets_chart/assets_chart_viewmodel.dart';
 import 'package:portfolio/app/ui/custom_widgets/coin_list/coin_list_viewmodel.dart';
-import 'package:portfolio/app/ui/custom_widgets/porfolio_asset/portfolio_asset_viewmodel.dart';
-import 'package:portfolio/app/ui/custom_widgets/portfolio_title/portfolio_title_viewmodel.dart';
+import 'package:portfolio/app/ui/custom_widgets/portfolio/assets_chart/assets_chart_viewmodel.dart';
+import 'package:portfolio/app/ui/custom_widgets/portfolio/portfolio_viewmodel.dart';
 import 'package:portfolio/app/services/api_service.dart';
 import 'package:portfolio/app/services/database_service.dart';
 import 'package:portfolio/app/ui/views/add_portfolio/add_portfolio_viewmodel.dart';
@@ -24,8 +23,7 @@ void setupLocator() {
   locator.registerFactory(() => EditOrderViewModel());
   locator.registerFactory(() => CoinListViewModel());
   locator.registerFactory(() => OrderListViewModel());
-  locator.registerFactory(() => PortfolioTitleViewModel());
   locator.registerFactory(() => AddPortfolioViewModel());
-  locator.registerFactory(() => PortfolioAssetViewModel());
   locator.registerFactory(() => AssetsChartViewModel());
+  locator.registerFactory(() => PortfolioViewModel());
 }

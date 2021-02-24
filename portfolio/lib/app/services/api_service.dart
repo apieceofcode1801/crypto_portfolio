@@ -18,11 +18,20 @@ class ApiService implements ApiServiceAbstract {
   }
 
   @override
-  Future<num> getPrice(String coinId) async {
+  Future<double> getPrice(String coinId) async {
     final api = BaseNetworkAdapter(baseURL: baseURL);
     api.basePath = 'simple/price';
     api.parameters = {'ids': coinId, 'vs_currencies': 'usd'};
     Map<String, dynamic> result = await api.request();
-    return result[coinId]['usd'];
+    return double.parse(result[coinId]['usd'].toString());
+  }
+
+  Future<Map<String, num>> getPrices(List<String> coinIds) async {
+    final api = BaseNetworkAdapter(baseURL: baseURL);
+    api.basePath = 'simple/price';
+    api.parameters = {'ids': coinIds.join(','), 'vs_currencies': 'usd'};
+    Map<String, dynamic> result = await api.request();
+    return Map.fromEntries(result.entries
+        .map((e) => MapEntry(e.key, double.parse(e.value['usd'].toString()))));
   }
 }

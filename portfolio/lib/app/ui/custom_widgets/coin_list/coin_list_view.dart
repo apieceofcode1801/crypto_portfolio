@@ -31,7 +31,7 @@ class CoinListView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final coin = model.coins[index];
                         return ListTile(
-                          title: Text('${coin.name}'),
+                          title: Text('${coin.symbol} (${coin.name})'),
                           onTap: () {
                             Navigator.pop(context, coin);
                           },

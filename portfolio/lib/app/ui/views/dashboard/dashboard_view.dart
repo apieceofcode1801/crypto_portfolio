@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/app/consts/routes.dart';
-import 'package:portfolio/app/ui/custom_widgets/porfolio_asset/portfolio_asset_view.dart';
-import 'package:portfolio/app/ui/custom_widgets/portfolio_title/portfolio_title_view.dart';
+import 'package:portfolio/app/ui/custom_widgets/portfolio/portfolio_view.dart';
 import 'package:portfolio/app/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:portfolio/core/base_view.dart';
 
@@ -10,80 +9,47 @@ class DashboardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<DashboardViewModel>(
       builder: (context, model, child) => Scaffold(
-          appBar: AppBar(
-            title: Text('${model.btcPrice}'),
-            actions: [
-              IconButton(
-                  icon: Icon(Icons.refresh),
-                  onPressed: () {
-                    _reloadData(context, model);
-                  }),
-              IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () async {
-                    await Navigator.pushNamed(context, Routes.addPortfolio);
-                    _reloadData(context, model);
-                  }),
-            ],
-          ),
-          body: Container(
-              child: Column(
-            children: [
-              SizedBox(
-                  height: 150,
-                  child: PageView.builder(
-                    onPageChanged: (index) {
-                      model.updateCurrentPortfolio(index);
-                    },
-                    itemBuilder: (context, index) {
-                      final portfolio = model.portfolios[index];
-                      return Stack(
-                        children: [
-                          Positioned.fill(
-                              child: PortfolioTitleView(
-                            portfolio: portfolio,
-                            btcPrice: model.btcPrice,
-                          )),
-                          Positioned(
-                            child: IconButton(
-                              icon: Icon(Icons.list_alt),
-                              onPressed: () async {
-                                await Navigator.pushNamed(
-                                    context, Routes.orderList,
-                                    arguments: portfolio);
-                                _reloadData(context, model);
-                              },
-                            ),
-                            bottom: 8,
-                            right: 8,
-                          ),
-                          Positioned(
-                            child: IconButton(
-                              icon: Icon(Icons.edit),
-                              onPressed: () async {
-                                await Navigator.pushNamed(
-                                    context, Routes.addPortfolio,
-                                    arguments: portfolio);
-                                _reloadData(context, model);
-                              },
-                            ),
-                            top: 8,
-                            right: 8,
-                          )
-                        ],
-                      );
-                    },
-                    scrollDirection: Axis.horizontal,
-                    itemCount: model.portfolios.length,
-                  )),
-              model.currentPortfolio != null
-                  ? Expanded(
-                      child: PortfolioAssetView(
-                      portfolio: model.currentPortfolio,
-                    ))
-                  : Container(),
-            ],
-          ))),
+        appBar: AppBar(
+          title: Text('${model.btcPrice}'),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.refresh),
+                onPressed: () {
+                  _reloadData(context, model);
+                }),
+            IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () async {
+                  await Navigator.pushNamed(context, Routes.addPortfolio);
+                  _reloadData(context, model);
+                }),
+          ],
+        ),
+        body: PageView.builder(
+          onPageChanged: (index) {
+            model.updateCurrentPortfolio(index);
+          },
+          itemBuilder: (context, index) {
+            final portfolio = model.portfolios[index];
+            return PortfolioView(
+              portfolio: portfolio,
+              btcPrice: model.btcPrice,
+              onOpenOrderList: () async {
+                await Navigator.pushNamed(context, Routes.orderList,
+                    arguments: portfolio);
+                _reloadData(context, model);
+              },
+              onEdit: () async {
+                await Navigator.pushNamed(context, Routes.addPortfolio,
+                    arguments: portfolio);
+                _reloadData(context, model);
+              },
+            );
+          },
+          scrollDirection: Axis.horizontal,
+          itemCount: model.portfolios.length,
+        ),
+      ),
       onModelReady: (model) {
         _reloadData(context, model);
       },

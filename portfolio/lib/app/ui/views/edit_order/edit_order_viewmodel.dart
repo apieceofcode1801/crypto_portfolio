@@ -63,9 +63,9 @@ class EditOrderViewModel extends BaseViewModel {
           coinSymbol: _currentCoin.symbol,
           type: orderType,
           amount: orderType == OrderType.buy
-              ? num.parse(_amountController.text)
-              : -num.parse(_amountController.text),
-          price: num.parse(_priceController.text),
+              ? double.parse(_amountController.text)
+              : -double.parse(_amountController.text),
+          price: double.parse(_priceController.text),
           portfolioId: portfolioId,
           date: date);
       await _databaseService.addOrder(order);
@@ -77,8 +77,9 @@ class EditOrderViewModel extends BaseViewModel {
               coinSymbol: _currentCoin?.symbol,
               type: orderType,
               amount: orderType == OrderType.buy
-                  ? num.parse(_amountController.text)
-                  : -num.parse(_amountController.text),
+                  ? double.parse(_amountController.text)
+                  : -double.parse(_amountController.text),
+              price: double.parse(_priceController.text),
               date: date));
     }
     setState(ViewState.Idle);

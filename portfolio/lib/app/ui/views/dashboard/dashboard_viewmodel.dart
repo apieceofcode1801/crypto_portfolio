@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:portfolio/app/consts/consts.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
 import 'package:portfolio/app/locator.dart';
@@ -16,8 +18,8 @@ class DashboardViewModel extends BaseViewModel {
       ? _portfolios[_currentPortfolioIndex]
       : null;
 
-  num _btcPrice = 0;
-  num get btcPrice => _btcPrice;
+  double _btcPrice = 0;
+  double get btcPrice => _btcPrice;
 
   Future loadData() async {
     _portfolios = await _dbService.getPortfolios();
