@@ -84,7 +84,7 @@ class DatabaseService {
       await _database
           .delete(PortfolioTableName, where: 'id = ?', whereArgs: [id]);
       await _database
-          .delete(OrderTableName, where: 'portfolio_id', whereArgs: [id]);
+          .delete(OrderTableName, where: 'portfolio_id = ?', whereArgs: [id]);
     } catch (e) {
       print('Could not delete portfolio: $e');
     }

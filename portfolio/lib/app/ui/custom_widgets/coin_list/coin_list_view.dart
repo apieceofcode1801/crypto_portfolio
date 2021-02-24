@@ -19,11 +19,16 @@ class CoinListView extends StatelessWidget {
                 )
               : Column(
                   children: [
-                    TextField(
-                      decoration: InputDecoration(hintText: 'Enter your coin'),
-                      onChanged: (text) {
-                        model.searchText(text);
-                      },
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        autofocus: true,
+                        decoration:
+                            InputDecoration(hintText: 'Enter your coin'),
+                        onChanged: (text) {
+                          model.searchText(text);
+                        },
+                      ),
                     ),
                     Expanded(
                         child: ListView.builder(

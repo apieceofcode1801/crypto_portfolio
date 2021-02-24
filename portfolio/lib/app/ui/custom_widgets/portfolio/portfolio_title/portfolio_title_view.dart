@@ -16,7 +16,10 @@ class PortfolioTitleView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('$title'),
+            Text(
+              '$title'.toUpperCase(),
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(
               height: 16,
             ),
