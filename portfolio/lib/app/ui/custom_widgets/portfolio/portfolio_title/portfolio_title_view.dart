@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/app/extensions/extensions.dart';
 
 class PortfolioTitleView extends StatelessWidget {
   final String title;
@@ -19,7 +20,7 @@ class PortfolioTitleView extends StatelessWidget {
             const SizedBox(
               height: 16,
             ),
-            Text('${total.toStringAsFixed(2)} \$'),
+            Text('${total.toStringAsFixed(2).numberWithComma()} \$'),
             const SizedBox(
               height: 16,
             ),

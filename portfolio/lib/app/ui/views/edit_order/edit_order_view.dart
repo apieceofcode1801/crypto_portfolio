@@ -43,95 +43,106 @@ class EditOrderView extends StatelessWidget {
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : Form(
-                key: _formKey,
-                child: ListView(
-                  children: [
-                    TextFormField(
-                      controller: model.dateController,
-                      readOnly: true,
-                      decoration: InputDecoration(hintText: 'Select date'),
-                      onTap: () async {
-                        DateTime selectedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate:
-                                DateTime.now().subtract(Duration(days: 3650)),
-                            lastDate: DateTime.now());
-                        if (selectedDate != null) {
-                          model.setSelectedDate(selectedDate);
-                        }
-                      },
-                      validator: (text) =>
-                          text.isEmpty ? 'Please select date' : null,
-                    ),
-                    TextFormField(
-                      readOnly: true,
-                      decoration: InputDecoration(hintText: 'Select coin'),
-                      onTap: () async {
-                        Coin coin = await Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => CoinListView()));
-                        if (coin != null) {
-                          model.setCurrentCoin(coin);
-                        }
-                      },
-                      validator: (value) =>
-                          value.isEmpty ? 'Please select a coin' : null,
-                      controller: model.coinController,
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    DropdownButtonFormField(
-                      value: model.orderType,
-                      items: [
-                        DropdownMenuItem(
-                          child: Text('Buy'),
-                          value: 0,
-                        ),
-                        DropdownMenuItem(
-                          child: Text('Sell'),
-                          value: 1,
-                        )
-                      ],
-                      onChanged: (value) {
-                        model.orderType = value;
-                      },
-                      decoration: InputDecoration(hintText: 'Buy/Sell'),
-                      validator: (value) =>
-                          value == null ? 'Invalid order type' : null,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(hintText: 'Enter price'),
-                      validator: (value) =>
-                          value.isEmpty ? 'Invalid price' : null,
-                      keyboardType:
-                          TextInputType.numberWithOptions(decimal: true),
-                      controller: model.priceController,
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(hintText: 'Enter amount'),
-                      validator: (value) =>
-                          value.isEmpty ? 'Invalid amount' : null,
-                      keyboardType:
-                          TextInputType.numberWithOptions(decimal: true),
-                      controller: model.amountController,
-                    ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    TextButton(
-                        onPressed: () async {
-                          if (_formKey.currentState.validate()) {
-                            await model.submitOrder();
-                            Navigator.pop(context);
+            : Padding(
+                padding: const EdgeInsets.all(8),
+                child: Form(
+                  key: _formKey,
+                  child: ListView(
+                    children: [
+                      TextFormField(
+                        controller: model.dateController,
+                        readOnly: true,
+                        decoration: InputDecoration(hintText: 'Select date'),
+                        onTap: () async {
+                          DateTime selectedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate:
+                                  DateTime.now().subtract(Duration(days: 3650)),
+                              lastDate: DateTime.now());
+                          if (selectedDate != null) {
+                            model.setSelectedDate(selectedDate);
                           }
                         },
-                        child: Text('Submit'))
-                  ],
+                        validator: (text) =>
+                            text.isEmpty ? 'Please select date' : null,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      TextFormField(
+                        readOnly: true,
+                        decoration: InputDecoration(hintText: 'Select coin'),
+                        onTap: () async {
+                          Coin coin = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => CoinListView()));
+                          if (coin != null) {
+                            model.setCurrentCoin(coin);
+                          }
+                        },
+                        validator: (value) =>
+                            value.isEmpty ? 'Please select a coin' : null,
+                        controller: model.coinController,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      DropdownButtonFormField(
+                        value: model.orderType,
+                        items: [
+                          DropdownMenuItem(
+                            child: Text('Buy'),
+                            value: 0,
+                          ),
+                          DropdownMenuItem(
+                            child: Text('Sell'),
+                            value: 1,
+                          )
+                        ],
+                        onChanged: (value) {
+                          model.orderType = value;
+                        },
+                        decoration: InputDecoration(hintText: 'Buy/Sell'),
+                        validator: (value) =>
+                            value == null ? 'Invalid order type' : null,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(hintText: 'Enter price'),
+                        validator: (value) =>
+                            value.isEmpty ? 'Invalid price' : null,
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        controller: model.priceController,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(hintText: 'Enter amount'),
+                        validator: (value) =>
+                            value.isEmpty ? 'Invalid amount' : null,
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        controller: model.amountController,
+                      ),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      TextButton(
+                          onPressed: () async {
+                            if (_formKey.currentState.validate()) {
+                              await model.submitOrder();
+                              Navigator.pop(context);
+                            }
+                          },
+                          child: Text('Submit'))
+                    ],
+                  ),
                 ),
               ),
       ),

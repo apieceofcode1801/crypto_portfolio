@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/app/extensions/extensions.dart';
+import 'package:portfolio/app/ui/helpers/styles.dart';
 
 import '../portfolio_viewmodel.dart';
 
@@ -10,12 +12,18 @@ class AssetTableView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
-          height: 44,
-          child: _titleRow,
+        const SizedBox(
+          height: 16,
+        ),
+        _titleRow,
+        Divider(
+          color: Colors.black,
         ),
         Expanded(
-            child: ListView.builder(
+            child: ListView.separated(
+          separatorBuilder: (context, index) => Divider(
+            color: Colors.black,
+          ),
           itemBuilder: (context, index) {
             final asset = assets[index];
             return Row(
@@ -29,19 +37,19 @@ class AssetTableView extends StatelessWidget {
                 )),
                 Expanded(
                   child: Text(
-                    '${asset.amount}',
+                    '${asset.amount}'.numberWithComma(),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Expanded(
                   child: Text(
-                    '${asset.avgPrice}',
+                    '${asset.avgPrice}'.numberWithComma(),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Expanded(
                   child: Text(
-                    '${asset.curPrice}',
+                    '${asset.curPrice}'.numberWithComma(),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -57,7 +65,7 @@ class AssetTableView extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    '${asset.total}',
+                    '${asset.total}'.numberWithComma(),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -77,37 +85,37 @@ class AssetTableView extends StatelessWidget {
           Expanded(
               child: Text(
             'Coin',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: Styles.tableTitle,
             textAlign: TextAlign.center,
           )),
           Expanded(
               child: Text(
             'Amount',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: Styles.tableTitle,
             textAlign: TextAlign.center,
           )),
           Expanded(
               child: Text(
             'Avg. price',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: Styles.tableTitle,
             textAlign: TextAlign.center,
           )),
           Expanded(
               child: Text(
             'Cur. price',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: Styles.tableTitle,
             textAlign: TextAlign.center,
           )),
           Expanded(
               child: Text(
             'Profit',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: Styles.tableTitle,
             textAlign: TextAlign.center,
           )),
           Expanded(
               child: Text(
             'Total',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: Styles.tableTitle,
             textAlign: TextAlign.center,
           )),
         ],

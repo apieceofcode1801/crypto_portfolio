@@ -6,10 +6,10 @@ class Order {
   String coinId;
   String coinSymbol;
   String date;
-  num amount;
-  num price;
+  double amount;
+  double price;
   int portfolioId;
-  num get total => type == OrderType.buy ? amount * price : -amount * price;
+  double get total => type == OrderType.buy ? amount * price : -amount * price;
 
   Order(
       {this.id,
@@ -51,8 +51,8 @@ class Order {
       String coinId,
       String coinSymbol,
       String date,
-      num amount,
-      num price,
+      double amount,
+      double price,
       int portfolioId}) {
     return Order(
         id: id ?? this.id,

@@ -36,7 +36,8 @@ class AddPortfolioView extends StatelessWidget {
                   ]
                 : [],
           ),
-          body: Container(
+          body: Padding(
+            padding: EdgeInsets.all(8),
             child: Form(
                 key: _formKey,
                 child: ListView(
@@ -49,6 +50,9 @@ class AddPortfolioView extends StatelessWidget {
                       validator: (text) =>
                           text.isEmpty ? 'Name must not be empty' : null,
                     ),
+                    const SizedBox(
+                      height: 32,
+                    ),
                     TextButton(
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
@@ -56,7 +60,7 @@ class AddPortfolioView extends StatelessWidget {
                             Navigator.pop(context);
                           }
                         },
-                        child: const Text('Submit'))
+                        child: Text('Submit'))
                   ],
                 )),
           ),

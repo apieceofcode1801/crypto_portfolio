@@ -3,9 +3,11 @@ import 'package:portfolio/app/consts/consts.dart';
 import 'package:portfolio/app/consts/routes.dart';
 import 'package:portfolio/app/datamodels/order.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
+import 'package:portfolio/app/ui/helpers/styles.dart';
 import 'package:portfolio/app/ui/views/order_list/order_list_viewmodel.dart';
 import 'package:portfolio/core/base_view.dart';
 import 'package:portfolio/core/enums/viewstate.dart';
+import 'package:portfolio/app/extensions/extensions.dart';
 
 class OrderListView extends StatelessWidget {
   final Portfolio portfolio;
@@ -38,41 +40,53 @@ class OrderListView extends StatelessWidget {
                           child: Row(
                             children: [
                               Expanded(
-                                child: Text(
-                                  'Date',
-                                  textAlign: TextAlign.center,
-                                ),
+                                child: Text('Date',
+                                    textAlign: TextAlign.center,
+                                    style: Styles.tableTitle),
                                 flex: 2,
                               ),
                               Expanded(
-                                child:
-                                    Text('Coin', textAlign: TextAlign.center),
+                                child: Text(
+                                  'Coin',
+                                  textAlign: TextAlign.center,
+                                  style: Styles.tableTitle,
+                                ),
                                 flex: 1,
                               ),
                               Expanded(
-                                child:
-                                    Text('Type', textAlign: TextAlign.center),
+                                child: Text('Type',
+                                    textAlign: TextAlign.center,
+                                    style: Styles.tableTitle),
                                 flex: 1,
                               ),
                               Expanded(
-                                child:
-                                    Text('Price', textAlign: TextAlign.center),
+                                child: Text('Price',
+                                    textAlign: TextAlign.center,
+                                    style: Styles.tableTitle),
                                 flex: 1,
                               ),
                               Expanded(
-                                child:
-                                    Text('Amount', textAlign: TextAlign.center),
+                                child: Text('Amount',
+                                    textAlign: TextAlign.center,
+                                    style: Styles.tableTitle),
                                 flex: 1,
                               ),
                               Expanded(
-                                child:
-                                    Text('Total', textAlign: TextAlign.center),
+                                child: Text('Total',
+                                    textAlign: TextAlign.center,
+                                    style: Styles.tableTitle),
                                 flex: 1,
                               ),
                             ],
                           )),
+                      Divider(
+                        color: Colors.black,
+                      ),
                       Expanded(
-                        child: ListView.builder(
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) => Divider(
+                            color: Colors.black,
+                          ),
                           itemBuilder: (context, index) {
                             final order = model.orders[index];
                             return GestureDetector(
@@ -124,15 +138,17 @@ class OrderListItemView extends StatelessWidget {
           flex: 1,
         ),
         Expanded(
-          child: Text('${order.price}', textAlign: TextAlign.center),
+          child: Text('${order.price}'.numberWithComma(),
+              textAlign: TextAlign.center),
           flex: 1,
         ),
         Expanded(
-          child: Text('${order.amount}', textAlign: TextAlign.center),
+          child: Text('${order.amount}'.numberWithComma(),
+              textAlign: TextAlign.center),
           flex: 1,
         ),
         Expanded(
-          child: Text('${order.price * order.amount}',
+          child: Text('${order.price * order.amount}'.numberWithComma(),
               textAlign: TextAlign.center),
           flex: 1,
         ),

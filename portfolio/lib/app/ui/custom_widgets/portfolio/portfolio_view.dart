@@ -21,53 +21,56 @@ class PortfolioView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<PortfolioViewModel>(
-      builder: (context, model, child) => model.state == ViewState.Busy
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : Container(
-              child: Column(
-                children: [
-                  Container(
-                    height: 150,
-                    child: Stack(
-                      children: [
-                        Positioned.fill(
-                          child: PortfolioTitleView(
-                            title: portfolio.name,
-                            total: model.total,
-                            totalOnBtc: model.totalOnBtc,
-                          ),
-                        ),
-                        Positioned(
-                          child: IconButton(
-                            icon: Icon(Icons.list_alt),
-                            onPressed: onOpenOrderList,
-                          ),
-                          bottom: 8,
-                          right: 8,
-                        ),
-                        Positioned(
-                          child: IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: onEdit,
-                          ),
-                          top: 8,
-                          right: 8,
-                        )
-                      ],
+      builder: (context, model, child) => Stack(children: [
+        Container(
+          child: Column(
+            children: [
+              Container(
+                height: 150,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: PortfolioTitleView(
+                        title: portfolio.name,
+                        total: model.total,
+                        totalOnBtc: model.totalOnBtc,
+                      ),
                     ),
-                  ),
-                  model.assets.isNotEmpty
-                      ? Expanded(
-                          child: AssetsChartView(
-                          assets: model.assets,
-                        ))
-                      : Container(),
-                  Expanded(child: AssetTableView(assets: model.assets)),
-                ],
+                    Positioned(
+                      child: IconButton(
+                        icon: Icon(Icons.list_alt),
+                        onPressed: onOpenOrderList,
+                      ),
+                      bottom: 8,
+                      right: 8,
+                    ),
+                    Positioned(
+                      child: IconButton(
+                        icon: Icon(Icons.edit),
+                        onPressed: onEdit,
+                      ),
+                      top: 8,
+                      right: 8,
+                    )
+                  ],
+                ),
               ),
-            ),
+              model.assets.isNotEmpty
+                  ? Expanded(
+                      child: AssetsChartView(
+                      assets: model.assets,
+                    ))
+                  : Container(),
+              Expanded(child: AssetTableView(assets: model.assets)),
+            ],
+          ),
+        ),
+        model.state == ViewState.Busy
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Container()
+      ]),
       onModelReady: (model) {
         model.loadPortfolio(portfolio, btcPrice);
       },
