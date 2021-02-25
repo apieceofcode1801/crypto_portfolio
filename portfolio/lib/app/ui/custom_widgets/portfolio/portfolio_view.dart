@@ -27,7 +27,7 @@ class PortfolioView extends StatelessWidget {
               child: CircularProgressIndicator(),
             )
           : Padding(
-              padding: const EdgeInsets.only(bottom: 44.0),
+              padding: const EdgeInsets.only(bottom: 0),
               child: Stack(children: [
                 Column(children: [
                   Container(

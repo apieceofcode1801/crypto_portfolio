@@ -83,18 +83,18 @@ class AssetTableView extends StatelessWidget {
         children: [
           Expanded(
               child: Text(
-            '${asset.coinSymbol}',
+            '${asset.coinSymbol}'.toUpperCase(),
             textAlign: TextAlign.center,
           )),
           Expanded(
             child: Text(
-              '${asset.amount}'.numberWithComma(),
+              '${asset.amount.toStringAsFixed(2)}'.numberWithComma(),
               textAlign: TextAlign.center,
             ),
           ),
           Expanded(
             child: Text(
-              '${asset.avgPrice}'.numberWithComma(),
+              '${asset.avgPrice.toStringAsFixed(2)}'.numberWithComma(),
               textAlign: TextAlign.center,
             ),
           ),
@@ -116,7 +116,7 @@ class AssetTableView extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              '${asset.total}'.numberWithComma(),
+              '${asset.total.toStringAsFixed(2)}'.numberWithComma(),
               textAlign: TextAlign.center,
             ),
           ),

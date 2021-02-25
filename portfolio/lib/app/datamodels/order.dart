@@ -1,5 +1,3 @@
-import 'package:portfolio/app/consts/consts.dart';
-
 class Order {
   int id;
   int type;
@@ -9,7 +7,7 @@ class Order {
   double amount;
   double price;
   int portfolioId;
-  double get total => type == OrderType.buy ? amount * price : -amount * price;
+  double get total => amount * price;
 
   Order(
       {this.id,
