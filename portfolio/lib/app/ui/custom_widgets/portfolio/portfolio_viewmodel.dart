@@ -46,7 +46,7 @@ class PortfolioViewModel extends BaseViewModel {
             total: e.value
                 .map((e) => e.total)
                 .reduce((value, element) => value + element),
-            curPrice: _prices[e.key]))
+            curPrice: _prices[e.key] ?? 0))
         .toList();
     _total = _assets.isEmpty
         ? 0
