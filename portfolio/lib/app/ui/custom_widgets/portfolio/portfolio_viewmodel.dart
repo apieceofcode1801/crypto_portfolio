@@ -12,8 +12,14 @@ class PortfolioViewModel extends BaseViewModel {
   double _total = 0;
   double get total => _total;
 
+  double _marketTotal = 0;
+  double get marketTotal => _marketTotal;
+
   double _totalOnBtc = 0;
   double get totalOnBtc => _totalOnBtc;
+
+  double _profit = 0;
+  double get profit => _profit;
 
   double _btcPrice = 0;
 
@@ -45,8 +51,14 @@ class PortfolioViewModel extends BaseViewModel {
     _total = _assets.isEmpty
         ? 0
         : _assets
+            .map((e) => e.total)
+            .reduce((value, element) => value + element);
+    _marketTotal = _assets.isEmpty
+        ? 0
+        : _assets
             .map((e) => e.amount * e.curPrice)
             .reduce((value, element) => value + element);
+    _profit = _total != 0 ? ((_marketTotal / _total) - 1) * 100 : 0;
     _totalOnBtc = _btcPrice != 0 ? total / _btcPrice : 0;
     setState(ViewState.Idle);
   }

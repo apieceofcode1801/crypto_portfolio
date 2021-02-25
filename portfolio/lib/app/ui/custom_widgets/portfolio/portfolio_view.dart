@@ -31,13 +31,15 @@ class PortfolioView extends StatelessWidget {
               child: Stack(children: [
                 Column(children: [
                   Container(
-                    height: 120,
+                    height: 150,
                     child: Stack(
                       children: [
                         Positioned.fill(
                           child: PortfolioTitleView(
                             title: portfolio.name,
                             total: model.total,
+                            marketTotal: model.marketTotal,
+                            profit: model.profit,
                             totalOnBtc: model.totalOnBtc,
                           ),
                         ),
@@ -46,16 +48,16 @@ class PortfolioView extends StatelessWidget {
                             icon: Icon(Icons.list_alt),
                             onPressed: onOpeningOrderList,
                           ),
-                          bottom: 8,
-                          right: 8,
+                          bottom: 0,
+                          right: 0,
                         ),
                         Positioned(
                           child: IconButton(
                             icon: Icon(Icons.edit),
                             onPressed: onEditing,
                           ),
-                          top: 8,
-                          right: 8,
+                          top: 0,
+                          right: 0,
                         ),
                         model.assets.isEmpty
                             ? Container()
@@ -73,8 +75,8 @@ class PortfolioView extends StatelessWidget {
                                         title: 'Assets pie chart');
                                   },
                                 ),
-                                bottom: 8,
-                                left: 8,
+                                bottom: 0,
+                                left: 0,
                               )
                       ],
                     ),
