@@ -34,12 +34,12 @@ class DashboardView extends StatelessWidget {
             return PortfolioView(
               portfolio: portfolio,
               btcPrice: model.btcPrice,
-              onOpenOrderList: () async {
+              onOpeningOrderList: () async {
                 await Navigator.pushNamed(context, Routes.orderList,
                     arguments: portfolio);
                 _reloadData(context, model);
               },
-              onEdit: () async {
+              onEditing: () async {
                 await Navigator.pushNamed(context, Routes.addPortfolio,
                     arguments: portfolio);
                 _reloadData(context, model);

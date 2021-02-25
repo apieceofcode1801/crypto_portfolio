@@ -16,64 +16,20 @@ class AssetTableView extends StatelessWidget {
           height: 16,
         ),
         _titleRow,
-        Divider(
-          color: Colors.black,
+        Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            for (int i = 0; i < assets.length; i++)
+              Column(
+                children: [
+                  Divider(
+                    color: Colors.black,
+                  ),
+                  _assetRow(assets[i])
+                ],
+              )
+          ],
         ),
-        Expanded(
-            child: ListView.separated(
-          separatorBuilder: (context, index) => Divider(
-            color: Colors.black,
-          ),
-          itemBuilder: (context, index) {
-            final asset = assets[index];
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                    child: Text(
-                  '${asset.coinSymbol}',
-                  textAlign: TextAlign.center,
-                )),
-                Expanded(
-                  child: Text(
-                    '${asset.amount}'.numberWithComma(),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    '${asset.avgPrice}'.numberWithComma(),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    '${asset.curPrice}'.numberWithComma(),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    '${(100 * asset.profit).toStringAsFixed(2)}%',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: asset.profit > 0 ? Colors.blue : Colors.red,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    '${asset.total}'.numberWithComma(),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            );
-          },
-          itemCount: assets.length,
-        ))
       ],
     );
   }
@@ -118,6 +74,52 @@ class AssetTableView extends StatelessWidget {
             style: Styles.tableTitle,
             textAlign: TextAlign.center,
           )),
+        ],
+      );
+
+  Widget _assetRow(Asset asset) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Expanded(
+              child: Text(
+            '${asset.coinSymbol}',
+            textAlign: TextAlign.center,
+          )),
+          Expanded(
+            child: Text(
+              '${asset.amount}'.numberWithComma(),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Expanded(
+            child: Text(
+              '${asset.avgPrice}'.numberWithComma(),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Expanded(
+            child: Text(
+              '${asset.curPrice}'.numberWithComma(),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Expanded(
+            child: Text(
+              '${(100 * asset.profit).toStringAsFixed(2)}%',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: asset.profit > 0 ? Colors.blue : Colors.red,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              '${asset.total}'.numberWithComma(),
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       );
 }

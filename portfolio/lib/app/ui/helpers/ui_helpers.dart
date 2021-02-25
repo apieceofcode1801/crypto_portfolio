@@ -41,3 +41,28 @@ void showAlertDialog(
     builder: (context) => alert,
   );
 }
+
+void showWidgetDialog({BuildContext context, Widget child, String title = ''}) {
+  showDialog(
+      context: context,
+      builder: (_) => WillPopScope(
+            child: Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                title: Text(title),
+                actions: [
+                  IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      })
+                ],
+              ),
+              body: Container(
+                child: child,
+              ),
+            ),
+            onWillPop: () async => false,
+          ),
+      barrierDismissible: false);
+}

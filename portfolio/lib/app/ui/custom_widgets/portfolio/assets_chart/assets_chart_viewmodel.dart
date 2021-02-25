@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/app/ui/custom_widgets/portfolio/portfolio_viewmodel.dart';
 import 'package:portfolio/app/ui/helpers/ui_helpers.dart';
 import 'package:portfolio/core/base_viewmodel.dart';
+import 'package:portfolio/core/enums/viewstate.dart';
 
 class AssetsChartViewModel extends BaseViewModel {
   List<Color> _colors = [];
@@ -12,9 +13,11 @@ class AssetsChartViewModel extends BaseViewModel {
   List<PieChartSectionData> get sectionDatas => _sectionDatas;
 
   void loadData([List<Asset> assets]) {
+    setState(ViewState.Busy);
     _colors = assets.map((e) => UIHelpers.generateRandomColor()).toList();
     final total =
         assets.map((e) => e.total).reduce((value, element) => value + element);
+    _sectionDatas.clear();
     for (int i = 0; i < assets.length; i++) {
       final asset = assets[i];
       final percent = asset.total / total;
@@ -27,6 +30,6 @@ class AssetsChartViewModel extends BaseViewModel {
           radius: 50);
       _sectionDatas.add(sectionData);
     }
-    notifyListeners();
+    setState(ViewState.Idle);
   }
 }
