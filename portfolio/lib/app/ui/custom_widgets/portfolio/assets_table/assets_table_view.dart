@@ -116,7 +116,7 @@ class AssetTableView extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              '${asset.total.toStringAsFixed(2)}'.numberWithComma(),
+              '${asset.marketTotal.toStringAsFixed(2)}'.numberWithComma(),
               textAlign: TextAlign.center,
             ),
           ),

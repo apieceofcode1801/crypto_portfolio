@@ -15,12 +15,13 @@ class AssetsChartViewModel extends BaseViewModel {
   void loadData([List<Asset> assets]) {
     setState(ViewState.Busy);
     _colors = assets.map((e) => UIHelpers.generateRandomColor()).toList();
-    final total =
-        assets.map((e) => e.total).reduce((value, element) => value + element);
+    final marketTotal = assets
+        .map((e) => e.marketTotal)
+        .reduce((value, element) => value + element);
     _sectionDatas.clear();
     for (int i = 0; i < assets.length; i++) {
       final asset = assets[i];
-      final percent = asset.total / total;
+      final percent = asset.marketTotal / marketTotal;
       final sectionData = PieChartSectionData(
           color: _colors[i],
           value: percent,

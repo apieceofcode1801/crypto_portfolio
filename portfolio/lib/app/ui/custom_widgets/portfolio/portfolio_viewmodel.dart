@@ -57,7 +57,7 @@ class PortfolioViewModel extends BaseViewModel {
     _marketTotal = _assets.isEmpty
         ? 0
         : _assets
-            .map((e) => e.amount * e.curPrice)
+            .map((e) => e.marketTotal)
             .reduce((value, element) => value + element);
     _profit = _total != 0 ? ((_marketTotal / _total) - 1) * 100 : 0;
     _totalOnBtc = _btcPrice != 0 ? total / _btcPrice : 0;
@@ -72,6 +72,7 @@ class Asset {
   double curPrice;
 
   double get avgPrice => total / amount;
+  double get marketTotal => amount * curPrice;
   double get profit => (curPrice - avgPrice) / avgPrice;
 
   Asset({this.coinSymbol, this.amount, this.total, this.curPrice});

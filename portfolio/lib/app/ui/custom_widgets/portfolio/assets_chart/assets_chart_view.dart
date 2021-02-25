@@ -40,7 +40,7 @@ class AssetsChartView extends StatelessWidget {
                                   width: 5,
                                 ),
                                 Text(
-                                  '${assets[i].coinSymbol}',
+                                  '${assets[i].coinSymbol.toUpperCase()}',
                                   maxLines: 1,
                                 )
                               ],
