@@ -8,7 +8,7 @@ import 'package:portfolio/core/base_view.dart';
 import 'package:portfolio/core/enums/viewstate.dart';
 
 class EditOrderView extends StatelessWidget {
-  final int portfolioId;
+  final String portfolioId;
   final Order order;
   EditOrderView({Key key, this.portfolioId, this.order}) : super(key: key);
 

@@ -22,8 +22,8 @@ class Router {
                 ));
       case Routes.updateOrder:
         return MaterialPageRoute(builder: (_) {
-          if (settings.arguments is int) {
-            final int portfolioId = settings.arguments;
+          if (settings.arguments is String) {
+            final String portfolioId = settings.arguments;
             return EditOrderView(
               portfolioId: portfolioId,
             );

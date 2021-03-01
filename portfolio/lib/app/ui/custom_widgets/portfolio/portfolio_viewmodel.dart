@@ -1,6 +1,6 @@
 import 'package:portfolio/app/datamodels/porfolio.dart';
 import 'package:portfolio/app/locator.dart';
-import 'package:portfolio/app/services/api_service.dart';
+import 'package:portfolio/app/services/coingecko_service.dart';
 import 'package:portfolio/app/services/database_service.dart';
 import 'package:portfolio/core/base_viewmodel.dart';
 import 'package:portfolio/core/enums/viewstate.dart';
@@ -8,7 +8,7 @@ import 'package:portfolio/app/extensions/extensions.dart';
 
 class PortfolioViewModel extends BaseViewModel {
   final _databaseService = locator<DatabaseService>();
-  final _apiService = locator<ApiService>();
+  final _apiService = locator<CoingeckoService>();
   double _total = 0;
   double get total => _total;
 
@@ -32,7 +32,8 @@ class PortfolioViewModel extends BaseViewModel {
   void loadPortfolio(Portfolio portfolio, num btcPrice) async {
     setState(ViewState.Busy);
     _btcPrice = btcPrice;
-    final orders = await _databaseService.getOrdersOfPortfolio(portfolio.id);
+    final orders =
+        await _databaseService.getOrdersOfPortfolio(portfolio.id.toString());
     final groupedOrders = orders.groupBy((e) => e.coinId);
     _prices = await _apiService
         .getPrices(groupedOrders.entries.map((e) => e.key).toList());

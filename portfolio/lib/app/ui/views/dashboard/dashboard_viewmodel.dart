@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:portfolio/app/consts/consts.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
 import 'package:portfolio/app/locator.dart';
-import 'package:portfolio/app/services/api_service.dart';
+import 'package:portfolio/app/services/coingecko_service.dart';
 import 'package:portfolio/app/services/database_service.dart';
 import 'package:portfolio/core/base_viewmodel.dart';
 
 class DashboardViewModel extends BaseViewModel {
   final _dbService = locator<DatabaseService>();
-  final _apiService = locator<ApiService>();
+  final _apiService = locator<CoingeckoService>();
   List<Portfolio> _portfolios = [];
   List<Portfolio> get portfolios => _portfolios;
 

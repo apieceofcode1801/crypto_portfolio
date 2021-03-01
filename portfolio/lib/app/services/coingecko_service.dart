@@ -1,12 +1,12 @@
 import 'package:portfolio/app/datamodels/coin.dart';
 import 'package:portfolio/core/base_network_adapter.dart';
 
-abstract class ApiServiceAbstract {
+abstract class NetworkServiceAbstract {
   Future<List<Coin>> getListCoins();
   Future<num> getPrice(String coinId);
 }
 
-class ApiService implements ApiServiceAbstract {
+class CoingeckoService implements NetworkServiceAbstract {
   final baseURL = 'https://api.coingecko.com/api/v3/';
   @override
   Future<List<Coin>> getListCoins() async {

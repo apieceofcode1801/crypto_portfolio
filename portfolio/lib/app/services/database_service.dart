@@ -1,92 +1,58 @@
-import 'package:portfolio/app/datamodels/order.dart';
+import 'package:flutter/foundation.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:sqflite/sqlite_api.dart';
-
-import 'database_service_helper.dart';
-
-const String DB_NAME = 'portfolio.sqlite';
-const String OrderTableName = 'orders';
-const String PortfolioTableName = 'portfolios';
+import 'package:portfolio/app/datamodels/order.dart';
+import 'package:portfolio/app/services/apis/db_api_abstract.dart';
+import 'package:portfolio/app/services/apis/sqlite_api.dart';
+import 'package:portfolio/app/services/apis/firestore_api.dart';
 
 class DatabaseService {
-  Database _database;
+  DbApiAbstract _api;
 
-  Future initialise() async {
-    _database =
-        await openDatabase(DB_NAME, version: 1, onCreate: (db, version) async {
-      await db.execute(createPortfolioTableQuery);
-      await db.execute(createOrderTableQuery);
-    });
-  }
-
-  Future<List<Order>> getOrders() async {
-    List<Map> orderResults = await _database.query(OrderTableName);
-    return orderResults.map((e) => Order.fromJson(e)).toList();
-  }
-
-  Future<List<Order>> getOrdersOfPortfolio(int id) async {
-    List<Map> results = await _database
-        .rawQuery('SELECT * FROM $OrderTableName WHERE portfolio_id = $id');
-    return results.map((e) => Order.fromJson(e)).toList();
-  }
-
-  Future<int> addOrder(Order order) async {
-    try {
-      return await _database.insert(OrderTableName, order.toJson());
-    } catch (e) {
-      print('Coudn\'t insert the order: $e');
-      return 0;
+  DatabaseService() {
+    if (kIsWeb) {
+      _api = FirestoreApi();
+    } else {
+      _api = SqliteApi();
     }
   }
 
-  Future updateOrder({int id, Order order}) async {
-    try {
-      await _database.update(OrderTableName, order.toJson(),
-          where: 'id = ?', whereArgs: [id]);
-    } catch (e) {
-      print('Could not update order: $e');
-    }
+  Future addOrder(Order order) {
+    return _api.addOrder(order);
   }
 
-  Future deleteOrder({int id}) async {
-    try {
-      await _database.delete(OrderTableName, where: 'id = ?', whereArgs: [id]);
-    } catch (e) {
-      print('Could not delete order: $e');
-    }
+  Future addPortfolio({Portfolio portfolio}) {
+    return _api.addPortfolio(portfolio: portfolio);
   }
 
-  Future<List<Portfolio>> getPortfolios() async {
-    List<Map> portfolioResults = await _database.query(PortfolioTableName);
-    return portfolioResults.map((e) => Portfolio.fromJson(e)).toList();
+  Future deleteOrder({String id}) {
+    return _api.deleteOrder(id: id);
   }
 
-  Future addPortfolio({Portfolio portfolio}) async {
-    try {
-      await _database.insert(PortfolioTableName, portfolio.toJson());
-    } catch (e) {
-      print('Could not add portfolio');
-    }
+  Future deletePortfolio(String id) {
+    return _api.deletePortfolio(id);
   }
 
-  Future updatePortfolio(int id, Portfolio portfolio) async {
-    try {
-      await _database.update(PortfolioTableName, portfolio.toJson(),
-          where: 'id = ?', whereArgs: [id]);
-    } catch (e) {
-      print('Could not update portfolio: $e');
-    }
+  Future<List<Order>> getOrders() {
+    return _api.getOrders();
   }
 
-  Future deletePortfolio(int id) async {
-    try {
-      await _database
-          .delete(PortfolioTableName, where: 'id = ?', whereArgs: [id]);
-      await _database
-          .delete(OrderTableName, where: 'portfolio_id = ?', whereArgs: [id]);
-    } catch (e) {
-      print('Could not delete portfolio: $e');
-    }
+  Future<List<Order>> getOrdersOfPortfolio(String id) {
+    return _api.getOrdersOfPortfolio(id);
+  }
+
+  Future<List<Portfolio>> getPortfolios() {
+    return _api.getPortfolios();
+  }
+
+  Future initialise() {
+    return _api.initialise();
+  }
+
+  Future updateOrder({String id, Order order}) {
+    return _api.updateOrder(id: id, order: order);
+  }
+
+  Future updatePortfolio(String id, Portfolio portfolio) {
+    return _api.updatePortfolio(id, portfolio);
   }
 }

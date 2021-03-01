@@ -1,12 +1,12 @@
 class Order {
-  int id;
+  String id;
   int type;
   String coinId;
   String coinSymbol;
   String date;
   double amount;
   double price;
-  int portfolioId;
+  String portfolioId;
   double get total => amount * price;
 
   Order(
@@ -20,7 +20,7 @@ class Order {
       this.portfolioId});
 
   Order.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'].toString();
     type = json['type'];
     coinId = json['coin_id'];
     coinSymbol = json['coin_symbol'];

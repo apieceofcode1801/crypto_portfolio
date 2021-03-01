@@ -23,14 +23,15 @@ class AddPortfolioViewModel extends BaseViewModel {
     } else {
       final portfolio = _portfolio.copy(
           name: _nameController.text, updatedAt: DateTime.now().toString());
-      await _databaseService.updatePortfolio(_portfolio.id, portfolio);
+      await _databaseService.updatePortfolio(
+          _portfolio.id.toString(), portfolio);
     }
     setState(ViewState.Idle);
   }
 
   Future deletePortfolio() async {
     setState(ViewState.Busy);
-    await _databaseService.deletePortfolio(_portfolio.id);
+    await _databaseService.deletePortfolio(_portfolio.id.toString());
     setState(ViewState.Idle);
   }
 

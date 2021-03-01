@@ -9,8 +9,8 @@ import 'package:portfolio/core/base_viewmodel.dart';
 import 'package:portfolio/core/enums/viewstate.dart';
 
 class EditOrderViewModel extends BaseViewModel {
-  int _portfolioId;
-  int get portfolioId => _portfolioId;
+  String _portfolioId;
+  String get portfolioId => _portfolioId;
 
   Coin _currentCoin;
   Coin get currentCoin => _currentCoin;
@@ -44,7 +44,7 @@ class EditOrderViewModel extends BaseViewModel {
     }
   }
 
-  void setPortfolioId(int id) {
+  void setPortfolioId(String id) {
     _portfolioId = id;
   }
 
@@ -71,7 +71,7 @@ class EditOrderViewModel extends BaseViewModel {
       await _databaseService.addOrder(order);
     } else {
       await _databaseService.updateOrder(
-          id: _order.id,
+          id: _order.id.toString(),
           order: _order.copy(
               coinId: _currentCoin?.id,
               coinSymbol: _currentCoin?.symbol,
@@ -87,7 +87,7 @@ class EditOrderViewModel extends BaseViewModel {
 
   Future deleteOrder() async {
     setState(ViewState.Busy);
-    await _databaseService.deleteOrder(id: _order.id);
+    await _databaseService.deleteOrder(id: _order.id.toString());
     setState(ViewState.Idle);
   }
 

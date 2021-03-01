@@ -1,5 +1,5 @@
 class Portfolio {
-  int id;
+  String id;
   String name;
   String createdAt;
   String updatedAt;
@@ -7,7 +7,7 @@ class Portfolio {
   Portfolio({this.id, this.name, this.createdAt, this.updatedAt});
 
   Portfolio.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'].toString();
     name = json['name'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];

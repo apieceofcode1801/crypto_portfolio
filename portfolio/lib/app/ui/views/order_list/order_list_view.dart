@@ -25,7 +25,7 @@ class OrderListView extends StatelessWidget {
                     onPressed: () async {
                       await Navigator.pushNamed(context, Routes.updateOrder,
                           arguments: portfolio.id);
-                      model.loadOrders(portfolio.id);
+                      model.loadOrders(portfolio.id.toString());
                     })
               ],
             ),
@@ -97,7 +97,7 @@ class OrderListView extends StatelessWidget {
                                 await Navigator.pushNamed(
                                     context, Routes.updateOrder,
                                     arguments: order);
-                                model.loadOrders(portfolio.id);
+                                model.loadOrders(portfolio.id.toString());
                               },
                             );
                           },
@@ -108,7 +108,7 @@ class OrderListView extends StatelessWidget {
                   ));
       },
       onModelReady: (model) {
-        model.loadOrders(portfolio.id);
+        model.loadOrders(portfolio.id.toString());
       },
     );
   }
