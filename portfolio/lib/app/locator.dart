@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:portfolio/app/services/apis/firestore_api.dart';
+import 'package:portfolio/app/services/apis/sqlite_api.dart';
 import 'package:portfolio/app/services/database_service.dart';
 import 'package:portfolio/app/ui/custom_widgets/coin_list/coin_list_viewmodel.dart';
 import 'package:portfolio/app/ui/custom_widgets/portfolio/assets_chart/assets_chart_viewmodel.dart';
@@ -14,7 +17,9 @@ GetIt locator = GetIt.instance;
 
 void setupLocator() {
   // services
-  locator.registerLazySingleton(() => DatabaseService());
+  locator.registerLazySingleton(() => kIsWeb
+      ? DatabaseService(api: FirestoreApi())
+      : DatabaseService(api: SqliteApi()));
   locator.registerLazySingleton(() => CoingeckoService());
 
   // viewmodels
