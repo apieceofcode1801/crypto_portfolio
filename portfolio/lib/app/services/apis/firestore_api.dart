@@ -52,8 +52,8 @@ class FirestoreApi extends DbApiAbstract {
   }
 
   @override
-  Future<List<Portfolio>> getPortfolios() {
-    return _portfolios.get().then((value) =>
+  Future<List<Portfolio>> getPortfolios({String userId}) {
+    return _portfolios.where('user_id', isEqualTo: userId).get().then((value) =>
         value.docs.map((e) => Portfolio.fromJson(e.data())).toList());
   }
 

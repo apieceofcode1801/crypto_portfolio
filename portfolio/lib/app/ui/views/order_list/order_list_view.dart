@@ -3,11 +3,11 @@ import 'package:portfolio/app/consts/consts.dart';
 import 'package:portfolio/app/consts/routes.dart';
 import 'package:portfolio/app/datamodels/order.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
+import 'package:portfolio/app/ui/helpers/functions.dart';
 import 'package:portfolio/app/ui/helpers/styles.dart';
 import 'package:portfolio/app/ui/views/order_list/order_list_viewmodel.dart';
 import 'package:portfolio/core/base_view.dart';
 import 'package:portfolio/core/enums/viewstate.dart';
-import 'package:portfolio/app/extensions/extensions.dart';
 
 class OrderListView extends StatelessWidget {
   final Portfolio portfolio;
@@ -43,7 +43,7 @@ class OrderListView extends StatelessWidget {
                                 child: Text('Date',
                                     textAlign: TextAlign.center,
                                     style: Styles.tableTitle),
-                                flex: 2,
+                                flex: 1,
                               ),
                               Expanded(
                                 child: Text(
@@ -126,7 +126,7 @@ class OrderListItemView extends StatelessWidget {
             '${order.date}',
             textAlign: TextAlign.center,
           ),
-          flex: 2,
+          flex: 1,
         ),
         Expanded(
           child: Text('${order.coinSymbol}', textAlign: TextAlign.center),
@@ -138,17 +138,17 @@ class OrderListItemView extends StatelessWidget {
           flex: 1,
         ),
         Expanded(
-          child: Text('${order.price}'.numberWithComma(),
+          child:
+              Text('${formatNumber(order.price)}', textAlign: TextAlign.center),
+          flex: 1,
+        ),
+        Expanded(
+          child: Text('${formatNumber(order.amount)}',
               textAlign: TextAlign.center),
           flex: 1,
         ),
         Expanded(
-          child: Text('${order.amount}'.numberWithComma(),
-              textAlign: TextAlign.center),
-          flex: 1,
-        ),
-        Expanded(
-          child: Text('${order.price * order.amount}'.numberWithComma(),
+          child: Text('${formatNumber(order.price * order.amount)}',
               textAlign: TextAlign.center),
           flex: 1,
         ),

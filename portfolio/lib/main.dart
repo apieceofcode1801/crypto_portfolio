@@ -40,16 +40,18 @@ class MyApp extends StatelessWidget {
     }
   }
 
-  Widget _app() => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                  primary: Colors.white, backgroundColor: Colors.blue),
-            ),
-            accentColor: Colors.amberAccent,
-            primaryColor: Colors.blue),
-        onGenerateRoute: router.Router.generateRoute,
-      );
+  Widget _app() {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Portfolio Pro',
+      theme: ThemeData(
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+                primary: Colors.white, backgroundColor: Colors.blue),
+          ),
+          accentColor: Colors.amberAccent,
+          primaryColor: Colors.blue),
+      onGenerateRoute: router.Router.generateRoute,
+    );
+  }
 }

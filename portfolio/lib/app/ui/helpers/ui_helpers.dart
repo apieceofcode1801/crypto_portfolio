@@ -15,7 +15,7 @@ class UIHelpers {
 }
 
 void showAlertDialog(
-    {BuildContext context,
+    {@required BuildContext context,
     String title = '',
     String content = '',
     Function onContinue}) {

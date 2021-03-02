@@ -58,7 +58,7 @@ class SqliteApi extends DbApiAbstract {
     }
   }
 
-  Future<List<Portfolio>> getPortfolios() async {
+  Future<List<Portfolio>> getPortfolios({String userId}) async {
     List<Map> portfolioResults = await _database.query(PortfolioTableName);
     return portfolioResults.map((e) => Portfolio.fromJson(e)).toList();
   }

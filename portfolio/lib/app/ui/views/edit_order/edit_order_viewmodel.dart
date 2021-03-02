@@ -92,7 +92,8 @@ class EditOrderViewModel extends BaseViewModel {
   }
 
   void setSelectedDate(DateTime date) {
-    _dateController.text = DateFormat(DateFormat.YEAR_MONTH_DAY).format(date);
+    _dateController.text =
+        DateFormat(DateFormat.YEAR_NUM_MONTH_DAY).format(date);
     notifyListeners();
   }
 

@@ -8,7 +8,7 @@ abstract class DbApiAbstract {
   Future addOrder(Order order);
   Future updateOrder({String id, Order order});
   Future deleteOrder({String id});
-  Future<List<Portfolio>> getPortfolios();
+  Future<List<Portfolio>> getPortfolios({String userId});
   Future addPortfolio({Portfolio portfolio});
   Future updatePortfolio(String id, Portfolio portfolio);
   Future deletePortfolio(String id);

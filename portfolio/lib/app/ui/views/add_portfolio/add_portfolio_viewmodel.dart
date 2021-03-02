@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
 import 'package:portfolio/app/locator.dart';
+import 'package:portfolio/app/models/user_model.dart';
 import 'package:portfolio/app/services/database_service.dart';
 import 'package:portfolio/core/base_viewmodel.dart';
 import 'package:portfolio/core/enums/viewstate.dart';
@@ -12,13 +13,17 @@ class AddPortfolioViewModel extends BaseViewModel {
   Portfolio _portfolio;
 
   final _databaseService = locator<DatabaseService>();
+  final _userModel = locator<UserModel>();
 
   Future submitPortfolio() async {
     setState(ViewState.Busy);
     final date = DateTime.now().toString();
     if (_portfolio == null) {
       final portfolio = Portfolio(
-          name: _nameController.text, updatedAt: date, createdAt: date);
+          userId: _userModel.currentUser.id,
+          name: _nameController.text,
+          updatedAt: date,
+          createdAt: date);
       await _databaseService.addPortfolio(portfolio: portfolio);
     } else {
       final portfolio = _portfolio.copy(

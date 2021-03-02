@@ -10,6 +10,15 @@ class DashboardView extends StatelessWidget {
     return BaseView<DashboardViewModel>(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(
+              Icons.logout,
+            ),
+            onPressed: () {
+              model.logout();
+              Navigator.pushReplacementNamed(context, Routes.auth);
+            },
+          ),
           title: Text('${model.btcPrice}'),
           actions: [
             IconButton(

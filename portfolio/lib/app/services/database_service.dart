@@ -31,8 +31,8 @@ class DatabaseService {
     return api.getOrdersOfPortfolio(id);
   }
 
-  Future<List<Portfolio>> getPortfolios() {
-    return api.getPortfolios();
+  Future<List<Portfolio>> getPortfolios({String userId}) {
+    return api.getPortfolios(userId: userId);
   }
 
   Future initialise() {

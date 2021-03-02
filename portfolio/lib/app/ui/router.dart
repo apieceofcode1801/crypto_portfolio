@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/app/consts/routes.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
 import 'package:portfolio/app/ui/custom_widgets/coin_list/coin_list_view.dart';
+import 'package:portfolio/app/ui/views/auth/auth_view.dart';
 import 'package:portfolio/app/ui/views/edit_order/edit_order_view.dart';
 import 'package:portfolio/app/ui/views/add_portfolio/add_portfolio_view.dart';
 import 'package:portfolio/app/ui/views/dashboard/dashboard_view.dart';
@@ -11,6 +12,8 @@ import 'package:portfolio/app/ui/views/startup/startup_view.dart';
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.auth:
+        return MaterialPageRoute(builder: (_) => AuthView());
       case Routes.dashboard:
         return MaterialPageRoute(builder: (_) => DashboardView());
       case Routes.startup:

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/app/extensions/extensions.dart';
+import 'package:portfolio/app/ui/helpers/functions.dart';
 import 'package:portfolio/app/ui/helpers/styles.dart';
 
 import '../portfolio_viewmodel.dart';
@@ -88,19 +88,19 @@ class AssetTableView extends StatelessWidget {
           )),
           Expanded(
             child: Text(
-              '${asset.amount.toStringAsFixed(2)}'.numberWithComma(),
+              '${formatNumber(asset.amount)}',
               textAlign: TextAlign.center,
             ),
           ),
           Expanded(
             child: Text(
-              '${asset.avgPrice.toStringAsFixed(2)}'.numberWithComma(),
+              '${formatNumber(asset.avgPrice)}',
               textAlign: TextAlign.center,
             ),
           ),
           Expanded(
             child: Text(
-              '${asset.curPrice}'.numberWithComma(),
+              '${formatNumber(asset.curPrice)}',
               textAlign: TextAlign.center,
             ),
           ),
@@ -116,7 +116,7 @@ class AssetTableView extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              '${asset.marketTotal.toStringAsFixed(2)}'.numberWithComma(),
+              '${formatNumber(asset.marketTotal)}',
               textAlign: TextAlign.center,
             ),
           ),
