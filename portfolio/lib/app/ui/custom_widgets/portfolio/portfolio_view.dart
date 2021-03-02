@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
 import 'package:portfolio/app/ui/custom_widgets/portfolio/portfolio_title/portfolio_title_view.dart';
 import 'package:portfolio/app/ui/custom_widgets/portfolio/portfolio_viewmodel.dart';
-import 'package:portfolio/app/ui/helpers/ui_helpers.dart';
 import 'package:portfolio/core/base_view.dart';
 import 'package:portfolio/core/enums/viewstate.dart';
-
-import 'assets_chart/assets_chart_view.dart';
 import 'assets_table/assets_table_view.dart';
 
 class PortfolioView extends StatelessWidget {
@@ -59,25 +56,26 @@ class PortfolioView extends StatelessWidget {
                           top: 0,
                           right: 0,
                         ),
-                        model.assets.isEmpty
-                            ? Container()
-                            : Positioned(
-                                child: IconButton(
-                                  icon: Icon(Icons.pie_chart),
-                                  onPressed: () {
-                                    showWidgetDialog(
-                                        context: context,
-                                        child: SingleChildScrollView(
-                                          child: AssetsChartView(
-                                            assets: model.assets,
-                                          ),
-                                        ),
-                                        title: 'Assets pie chart');
-                                  },
-                                ),
-                                bottom: 0,
-                                left: 0,
-                              )
+                        //Temporary remove for fixing web error
+                        // model.assets.isEmpty
+                        //     ? Container()
+                        //     : Positioned(
+                        //         child: IconButton(
+                        //           icon: Icon(Icons.pie_chart),
+                        //           onPressed: () {
+                        //             showWidgetDialog(
+                        //                 context: context,
+                        //                 child: SingleChildScrollView(
+                        //                   child: AssetsChartView(
+                        //                     assets: model.assets,
+                        //                   ),
+                        //                 ),
+                        //                 title: 'Assets pie chart');
+                        //           },
+                        //         ),
+                        //         bottom: 0,
+                        //         left: 0,
+                        //       )
                       ],
                     ),
                   ),
