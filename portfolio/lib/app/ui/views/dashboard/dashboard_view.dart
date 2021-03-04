@@ -45,7 +45,7 @@ class DashboardView extends StatelessWidget {
               btcPrice: model.btcPrice,
               onOpeningOrderList: () async {
                 await Navigator.pushNamed(context, Routes.orderList,
-                    arguments: portfolio);
+                    arguments: [portfolio]);
                 _reloadData(context, model);
               },
               onEditing: () async {

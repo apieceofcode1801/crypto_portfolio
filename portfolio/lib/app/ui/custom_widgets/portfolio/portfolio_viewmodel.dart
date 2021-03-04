@@ -41,6 +41,7 @@ class PortfolioViewModel extends BaseViewModel {
     _assets = groupedOrders.entries
         .map((e) => Asset(
             coinSymbol: e.value.map((e) => e.coinSymbol).toList().first,
+            coinId: e.value.map((e) => e.coinId).toList().first,
             amount: e.value
                 .map((e) => e.amount)
                 .reduce((value, element) => value + element),
@@ -49,7 +50,7 @@ class PortfolioViewModel extends BaseViewModel {
                 .reduce((value, element) => value + element),
             curPrice: _prices[e.key] ?? 0))
         .toList()
-          ..sort((a, b) => b.total.compareTo(a.total));
+          ..sort((a, b) => b.marketTotal.compareTo(a.marketTotal));
     _total = _assets.isEmpty
         ? 0
         : _assets
@@ -67,6 +68,7 @@ class PortfolioViewModel extends BaseViewModel {
 }
 
 class Asset {
+  String coinId;
   String coinSymbol;
   double amount;
   double total;
@@ -76,5 +78,5 @@ class Asset {
   double get marketTotal => amount * curPrice;
   double get profit => (curPrice - avgPrice) / avgPrice;
 
-  Asset({this.coinSymbol, this.amount, this.total, this.curPrice});
+  Asset({this.coinSymbol, this.coinId, this.amount, this.total, this.curPrice});
 }

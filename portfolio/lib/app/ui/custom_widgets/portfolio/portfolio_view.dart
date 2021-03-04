@@ -82,7 +82,7 @@ class PortfolioView extends StatelessWidget {
                   model.assets.isNotEmpty
                       ? Expanded(
                           child: SingleChildScrollView(
-                          child: AssetTableView(assets: model.assets),
+                          child: AssetTableView(portfolio: portfolio, assets: model.assets),
                         ))
                       : Container(),
                 ]),

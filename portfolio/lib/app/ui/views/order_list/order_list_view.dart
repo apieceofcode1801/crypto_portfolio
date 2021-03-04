@@ -11,14 +11,15 @@ import 'package:portfolio/core/enums/viewstate.dart';
 
 class OrderListView extends StatelessWidget {
   final Portfolio portfolio;
-  OrderListView({this.portfolio});
+  final String coinId;
+  OrderListView({this.portfolio, this.coinId});
   @override
   Widget build(BuildContext context) {
     return BaseView<OrderListViewModel>(
       builder: (context, model, child) {
         return Scaffold(
             appBar: AppBar(
-              title: Text('${portfolio.name}'),
+              title: Text(portfolio != null ? '${portfolio.name}' : coinId),
               actions: [
                 IconButton(
                     icon: Icon(Icons.add),
@@ -97,7 +98,8 @@ class OrderListView extends StatelessWidget {
                                 await Navigator.pushNamed(
                                     context, Routes.updateOrder,
                                     arguments: order);
-                                model.loadOrders(portfolio.id.toString());
+                                model.loadOrders(
+                                    portfolio.id.toString(), coinId);
                               },
                             );
                           },
@@ -108,7 +110,7 @@ class OrderListView extends StatelessWidget {
                   ));
       },
       onModelReady: (model) {
-        model.loadOrders(portfolio.id.toString());
+        model.loadOrders(portfolio.id.toString(), coinId);
       },
     );
   }
@@ -133,8 +135,12 @@ class OrderListItemView extends StatelessWidget {
           flex: 1,
         ),
         Expanded(
-          child: Text('${order.type == OrderType.buy ? 'Buy' : 'Sell'}',
-              textAlign: TextAlign.center),
+          child: Text(
+            '${order.type == OrderType.buy ? 'Buy' : 'Sell'}',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: order.type == OrderType.buy ? Colors.blue : Colors.red),
+          ),
           flex: 1,
         ),
         Expanded(

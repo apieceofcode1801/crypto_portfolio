@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:portfolio/app/datamodels/order.dart';
 import 'package:portfolio/app/locator.dart';
 import 'package:portfolio/app/services/database_service.dart';
@@ -9,9 +10,20 @@ class OrderListViewModel extends BaseViewModel {
   List<Order> _orders = [];
   List<Order> get orders => _orders;
 
-  Future loadOrders(String portfolioId) async {
+  Future loadOrders([String portfolioId, String coinId]) async {
     setState(ViewState.Busy);
     _orders = await _databaseService.getOrdersOfPortfolio(portfolioId);
+    if (coinId != null) {
+      _orders = _orders.where((element) => element.coinId == coinId).toList();
+    }
+    _orders.sortByDate();
     setState(ViewState.Idle);
+  }
+}
+
+extension OrderListExtension on List<Order> {
+  void sortByDate() {
+    DateFormat format = DateFormat('M/d/yyyy');
+    this.sort((a, b) => format.parse(b.date).compareTo(format.parse(a.date)));
   }
 }
