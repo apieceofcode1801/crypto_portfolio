@@ -61,6 +61,7 @@ class DashboardView extends StatelessWidget {
       ),
       onModelReady: (model) {
         _reloadData(context, model);
+        model.refresh();
       },
     );
   }

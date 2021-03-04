@@ -38,6 +38,13 @@ class DashboardViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  void refresh() {
+    Timer.periodic(Duration(minutes: 1), (timer) async {
+      _btcPrice = await _apiService.getPrice(CoinId.bitcoin);
+      notifyListeners();
+    });
+  }
+
   void logout() {
     _storageService.save(key: LocalKeys.userId, value: null);
     _userModel.currentUser = null;
