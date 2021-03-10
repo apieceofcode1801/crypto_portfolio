@@ -8,16 +8,18 @@ class StartupView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<StartupViewModel>(
       builder: (context, model, child) {
-        return Container(
-          color: Colors.white,
-          child: Container(
-            child: Center(
-              child: Text(
-                'portfolio PRO 2021'.toUpperCase(),
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
-                    color: Colors.amber),
+        return Scaffold(
+          body: Container(
+            color: Colors.white,
+            child: Container(
+              child: Center(
+                child: Text(
+                  'portfolio PRO 2021'.toUpperCase(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Colors.amber),
+                ),
               ),
             ),
           ),

@@ -50,6 +50,8 @@ class PortfolioViewModel extends BaseViewModel {
                 .reduce((value, element) => value + element),
             curPrice: _prices[e.key] ?? 0))
         .toList()
+        .where((element) => element.marketTotal > 1)
+        .toList()
           ..sort((a, b) => b.marketTotal.compareTo(a.marketTotal));
     _total = _assets.isEmpty
         ? 0
