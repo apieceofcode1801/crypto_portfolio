@@ -5,6 +5,7 @@ abstract class DbApiAbstract {
   Future initialise();
   Future<List<Order>> getOrders();
   Future<List<Order>> getOrdersOfPortfolio(String id);
+  Future<List<Order>> getOrdersOfAsset(String portfolioId, {String coinId});
   Future addOrder(Order order);
   Future updateOrder({String id, Order order});
   Future deleteOrder({String id});

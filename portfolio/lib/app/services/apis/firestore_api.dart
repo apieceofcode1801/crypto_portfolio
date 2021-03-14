@@ -79,4 +79,14 @@ class FirestoreApi extends DbApiAbstract {
         .then((value) => print('Portfolio updated'))
         .catchError((err) => print('Portfolio updated error: $err'));
   }
+
+  @override
+  Future<List<Order>> getOrdersOfAsset(String portfolioId, {String coinId}) {
+    return _orders
+        .where('portfolio_id', isEqualTo: portfolioId)
+        .where('coin_id', isEqualTo: coinId)
+        .get()
+        .then((value) =>
+            value.docs.map((e) => Order.fromJson(e.data())).toList());
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:portfolio/app/datamodels/asset.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
 import 'package:portfolio/app/locator.dart';
 import 'package:portfolio/app/services/coingecko_service.dart';
@@ -67,18 +68,4 @@ class PortfolioViewModel extends BaseViewModel {
     _totalOnBtc = _btcPrice != 0 ? total / _btcPrice : 0;
     setState(ViewState.Idle);
   }
-}
-
-class Asset {
-  String coinId;
-  String coinSymbol;
-  double amount;
-  double total;
-  double curPrice;
-
-  double get avgPrice => total / amount;
-  double get marketTotal => amount * curPrice;
-  double get profit => (curPrice - avgPrice) / avgPrice;
-
-  Asset({this.coinSymbol, this.coinId, this.amount, this.total, this.curPrice});
 }

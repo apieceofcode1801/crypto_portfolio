@@ -90,4 +90,10 @@ class SqliteApi extends DbApiAbstract {
       print('Could not delete portfolio: $e');
     }
   }
+
+  @override
+  Future<List<Order>> getOrdersOfAsset(String portfolioId, {String coinId}) {
+    // TODO: implement getOrdersOfAsset
+    throw UnimplementedError();
+  }
 }

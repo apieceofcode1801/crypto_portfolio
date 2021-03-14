@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/app/ui/custom_widgets/portfolio/portfolio_viewmodel.dart';
+import 'package:portfolio/app/datamodels/asset.dart';
 import 'package:portfolio/app/ui/helpers/ui_helpers.dart';
 import 'package:portfolio/core/base_viewmodel.dart';
 import 'package:portfolio/core/enums/viewstate.dart';

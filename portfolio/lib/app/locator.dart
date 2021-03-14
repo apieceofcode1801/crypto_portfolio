@@ -11,6 +11,7 @@ import 'package:portfolio/app/ui/custom_widgets/portfolio/assets_chart/assets_ch
 import 'package:portfolio/app/ui/custom_widgets/portfolio/portfolio_viewmodel.dart';
 import 'package:portfolio/app/services/coingecko_service.dart';
 import 'package:portfolio/app/ui/views/add_portfolio/add_portfolio_viewmodel.dart';
+import 'package:portfolio/app/ui/views/asset/asset_viewmodel.dart';
 import 'package:portfolio/app/ui/views/auth/auth_viewmodel.dart';
 import 'package:portfolio/app/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:portfolio/app/ui/views/edit_order/edit_order_viewmodel.dart';
@@ -38,6 +39,7 @@ void setupLocator() {
   locator.registerFactory(() => AssetsChartViewModel());
   locator.registerFactory(() => PortfolioViewModel());
   locator.registerFactory(() => AuthViewModel());
+  locator.registerFactory(() => AssetViewModel());
 
   locator.registerLazySingleton(() => UserModel());
 }

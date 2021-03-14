@@ -46,4 +46,8 @@ class DatabaseService {
   Future updatePortfolio(String id, Portfolio portfolio) {
     return api.updatePortfolio(id, portfolio);
   }
+
+  Future<List<Order>> getOrdersForAsset({String portfolioId, String coinId}) {
+    return api.getOrdersOfAsset(portfolioId, coinId: coinId);
+  }
 }

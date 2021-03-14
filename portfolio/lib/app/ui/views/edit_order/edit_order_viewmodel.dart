@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:portfolio/app/consts/consts.dart';
+import 'package:portfolio/app/datamodels/asset.dart';
 import 'package:portfolio/app/datamodels/coin.dart';
 import 'package:portfolio/app/datamodels/order.dart';
 import 'package:portfolio/app/locator.dart';
@@ -44,7 +45,7 @@ class EditOrderViewModel extends BaseViewModel {
     }
   }
 
-  void setPortfolioId(String id) {
+  void setPortfolioId(String id, {String coinId}) {
     _portfolioId = id;
   }
 
@@ -54,13 +55,14 @@ class EditOrderViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future submitOrder() async {
+  Future submitOrder({Asset asset}) async {
     setState(ViewState.Busy);
     final date = _dateController.text;
     if (_order == null) {
       final order = Order(
-          coinId: _currentCoin.id,
-          coinSymbol: _currentCoin.symbol,
+          coinId: _currentCoin != null ? _currentCoin.id : asset.coinId,
+          coinSymbol:
+              _currentCoin != null ? _currentCoin.symbol : asset.coinSymbol,
           type: orderType,
           amount: orderType == OrderType.buy
               ? double.parse(_amountController.text)
