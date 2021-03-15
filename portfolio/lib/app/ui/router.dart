@@ -48,11 +48,7 @@ class Router {
         return MaterialPageRoute(builder: (_) {
           final arguments = settings.arguments as List;
           final portfolio = arguments.first;
-          String coinId;
-          if (arguments.length == 2) {
-            coinId = arguments[1];
-          }
-          return OrderListView(portfolio: portfolio, coinId: coinId);
+          return OrderListView(portfolio: portfolio);
         });
       case Routes.asset:
         return MaterialPageRoute(builder: (_) {

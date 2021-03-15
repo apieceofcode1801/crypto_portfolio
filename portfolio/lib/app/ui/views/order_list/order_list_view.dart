@@ -11,21 +11,20 @@ import 'package:portfolio/core/enums/viewstate.dart';
 
 class OrderListView extends StatelessWidget {
   final Portfolio portfolio;
-  final String coinId;
-  OrderListView({this.portfolio, this.coinId});
+  OrderListView({this.portfolio});
   @override
   Widget build(BuildContext context) {
     return BaseView<OrderListViewModel>(
       builder: (context, model, child) {
         return Scaffold(
             appBar: AppBar(
-              title: Text(portfolio != null ? '${portfolio.name}' : coinId),
+              title: Text(portfolio.name),
               actions: [
                 IconButton(
                     icon: Icon(Icons.add),
                     onPressed: () async {
                       await Navigator.pushNamed(context, Routes.updateOrder,
-                          arguments: portfolio.id);
+                          arguments: [portfolio.id]);
                       model.loadOrders(portfolio.id.toString());
                     })
               ],
@@ -97,9 +96,8 @@ class OrderListView extends StatelessWidget {
                               onTap: () async {
                                 await Navigator.pushNamed(
                                     context, Routes.updateOrder,
-                                    arguments: order);
-                                model.loadOrders(
-                                    portfolio.id.toString(), coinId);
+                                    arguments: [order]);
+                                model.loadOrders(portfolio.id.toString());
                               },
                             );
                           },
@@ -110,7 +108,7 @@ class OrderListView extends StatelessWidget {
                   ));
       },
       onModelReady: (model) {
-        model.loadOrders(portfolio.id.toString(), coinId);
+        model.loadOrders(portfolio.id.toString());
       },
     );
   }

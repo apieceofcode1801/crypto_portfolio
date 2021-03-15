@@ -10,12 +10,9 @@ class OrderListViewModel extends BaseViewModel {
   List<Order> _orders = [];
   List<Order> get orders => _orders;
 
-  Future loadOrders([String portfolioId, String coinId]) async {
+  Future loadOrders([String portfolioId]) async {
     setState(ViewState.Busy);
     _orders = await _databaseService.getOrdersOfPortfolio(portfolioId);
-    if (coinId != null) {
-      _orders = _orders.where((element) => element.coinId == coinId).toList();
-    }
     _orders.sortByDate();
     setState(ViewState.Idle);
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:portfolio/app/consts/consts.dart';
 import 'package:portfolio/app/datamodels/asset.dart';
 import 'package:portfolio/app/datamodels/coin.dart';
 import 'package:portfolio/app/datamodels/order.dart';
