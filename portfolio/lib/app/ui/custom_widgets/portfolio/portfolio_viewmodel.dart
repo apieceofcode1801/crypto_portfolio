@@ -1,3 +1,4 @@
+import 'package:portfolio/app/consts/consts.dart';
 import 'package:portfolio/app/datamodels/asset.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
 import 'package:portfolio/app/locator.dart';
@@ -44,10 +45,10 @@ class PortfolioViewModel extends BaseViewModel {
             coinSymbol: e.value.map((e) => e.coinSymbol).toList().first,
             coinId: e.value.map((e) => e.coinId).toList().first,
             amount: e.value
-                .map((e) => e.amount)
+                .map((e) => e.type == OrderType.buy ? e.amount : -e.amount)
                 .reduce((value, element) => value + element),
             total: e.value
-                .map((e) => e.total)
+                .map((e) => e.type == OrderType.buy ? e.total : -e.total)
                 .reduce((value, element) => value + element),
             curPrice: _prices[e.key] ?? 0))
         .toList()

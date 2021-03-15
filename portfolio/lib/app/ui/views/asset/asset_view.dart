@@ -22,6 +22,10 @@ class AssetView extends StatelessWidget {
               title: Text(asset.coinSymbol.toUpperCase()),
               actions: [
                 IconButton(
+                  icon: Icon(Icons.add_alert),
+                  onPressed: () async {},
+                ),
+                IconButton(
                     icon: Icon(Icons.add),
                     onPressed: () async {
                       await Navigator.pushNamed(context, Routes.updateOrder,
