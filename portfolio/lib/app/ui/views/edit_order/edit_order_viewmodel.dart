@@ -64,9 +64,7 @@ class EditOrderViewModel extends BaseViewModel {
           coinSymbol:
               _currentCoin != null ? _currentCoin.symbol : asset.coinSymbol,
           type: orderType,
-          amount: orderType == OrderType.buy
-              ? double.parse(_amountController.text)
-              : -double.parse(_amountController.text),
+          amount: double.parse(_amountController.text),
           price: double.parse(_priceController.text),
           portfolioId: portfolioId,
           date: date);
@@ -78,9 +76,7 @@ class EditOrderViewModel extends BaseViewModel {
               coinId: _currentCoin?.id,
               coinSymbol: _currentCoin?.symbol,
               type: orderType,
-              amount: orderType == OrderType.buy
-                  ? double.parse(_amountController.text)
-                  : -double.parse(_amountController.text),
+              amount: double.parse(_amountController.text),
               price: double.parse(_priceController.text),
               date: date));
     }
