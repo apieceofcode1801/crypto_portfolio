@@ -27,6 +27,7 @@ class AssetViewModel extends BaseViewModel {
     setState(ViewState.Busy);
     _orders = await _dbService.getOrdersForAsset(
         portfolioId: _portfolioId, coinId: _asset.coinId);
+    _orders.sortByDate();
     setState(ViewState.Idle);
   }
 }

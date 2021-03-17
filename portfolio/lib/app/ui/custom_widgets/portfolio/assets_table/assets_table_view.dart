@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/app/consts/routes.dart';
 import 'package:portfolio/app/datamodels/asset.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
+import 'package:portfolio/app/ui/custom_widgets/portfolio/assets_table/assets_table_viewmodel.dart';
 import 'package:portfolio/app/ui/helpers/functions.dart';
 import 'package:portfolio/app/ui/helpers/styles.dart';
+import 'package:portfolio/core/base_view.dart';
 
 class AssetTableView extends StatelessWidget {
   final Portfolio portfolio;
@@ -11,32 +13,35 @@ class AssetTableView extends StatelessWidget {
   const AssetTableView({@required this.portfolio, @required this.assets});
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const SizedBox(
-          height: 16,
-        ),
-        _titleRow,
-        Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            for (int i = 0; i < assets.length; i++)
-              Column(
-                children: [
-                  Divider(
-                    color: Colors.black,
-                  ),
-                  _assetRow(context, assets[i])
-                ],
-              )
-          ],
-        ),
-      ],
+    return BaseView<AssetsTableViewModel>(
+      builder: (_, model, child) => Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(
+            height: 16,
+          ),
+          _titleRow(model),
+          Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              for (int i = 0; i < assets.length; i++)
+                Column(
+                  children: [
+                    Divider(
+                      color: Colors.black,
+                    ),
+                    _assetRow(context, model.assets[i])
+                  ],
+                )
+            ],
+          ),
+        ],
+      ),
+      onModelReady: (model) => model.loadAssets(assets),
     );
   }
 
-  Widget get _titleRow => Row(
+  Widget _titleRow(AssetsTableViewModel model) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -65,16 +70,54 @@ class AssetTableView extends StatelessWidget {
             textAlign: TextAlign.center,
           )),
           Expanded(
-              child: Text(
-            'Profit',
-            style: Styles.tableTitle,
-            textAlign: TextAlign.center,
+              child: FlatButton(
+            onPressed: model.sortByProfit,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Profit',
+                  style: Styles.tableTitle,
+                  textAlign: TextAlign.center,
+                ),
+                model.sortBy == SortBy.profitDown
+                    ? Icon(
+                        Icons.arrow_downward,
+                        size: 15,
+                      )
+                    : model.sortBy == SortBy.profitUp
+                        ? Icon(
+                            Icons.arrow_upward,
+                            size: 15,
+                          )
+                        : Container()
+              ],
+            ),
           )),
           Expanded(
-              child: Text(
-            'Total',
-            style: Styles.tableTitle,
-            textAlign: TextAlign.center,
+              child: FlatButton(
+            onPressed: model.sortByMarketTotal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Total',
+                  style: Styles.tableTitle,
+                  textAlign: TextAlign.center,
+                ),
+                model.sortBy == SortBy.totalDown
+                    ? Icon(
+                        Icons.arrow_downward,
+                        size: 15,
+                      )
+                    : model.sortBy == SortBy.totalUp
+                        ? Icon(
+                            Icons.arrow_upward,
+                            size: 15,
+                          )
+                        : Container()
+              ],
+            ),
           )),
         ],
       );

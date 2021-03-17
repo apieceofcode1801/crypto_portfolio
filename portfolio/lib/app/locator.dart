@@ -8,6 +8,7 @@ import 'package:portfolio/app/services/database_service.dart';
 import 'package:portfolio/app/services/local_storage_service.dart';
 import 'package:portfolio/app/ui/custom_widgets/coin_list/coin_list_viewmodel.dart';
 import 'package:portfolio/app/ui/custom_widgets/portfolio/assets_chart/assets_chart_viewmodel.dart';
+import 'package:portfolio/app/ui/custom_widgets/portfolio/assets_table/assets_table_viewmodel.dart';
 import 'package:portfolio/app/ui/custom_widgets/portfolio/portfolio_viewmodel.dart';
 import 'package:portfolio/app/services/coingecko_service.dart';
 import 'package:portfolio/app/ui/views/add_portfolio/add_portfolio_viewmodel.dart';
@@ -40,6 +41,7 @@ void setupLocator() {
   locator.registerFactory(() => PortfolioViewModel());
   locator.registerFactory(() => AuthViewModel());
   locator.registerFactory(() => AssetViewModel());
+  locator.registerFactory(() => AssetsTableViewModel());
 
   locator.registerLazySingleton(() => UserModel());
 }

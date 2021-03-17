@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:portfolio/app/datamodels/order.dart';
 import 'package:portfolio/app/locator.dart';
 import 'package:portfolio/app/services/database_service.dart';
@@ -15,12 +14,5 @@ class OrderListViewModel extends BaseViewModel {
     _orders = await _databaseService.getOrdersOfPortfolio(portfolioId);
     _orders.sortByDate();
     setState(ViewState.Idle);
-  }
-}
-
-extension OrderListExtension on List<Order> {
-  void sortByDate() {
-    DateFormat format = DateFormat('M/d/yyyy');
-    this.sort((a, b) => format.parse(b.date).compareTo(format.parse(a.date)));
   }
 }

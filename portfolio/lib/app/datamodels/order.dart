@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class Order {
   String id;
   int type;
@@ -61,5 +63,12 @@ class Order {
         amount: amount ?? this.amount,
         price: price ?? this.price,
         portfolioId: portfolioId ?? this.portfolioId);
+  }
+}
+
+extension OrderListExtension on List<Order> {
+  void sortByDate() {
+    DateFormat format = DateFormat('M/d/yyyy');
+    this.sort((a, b) => format.parse(b.date).compareTo(format.parse(a.date)));
   }
 }
