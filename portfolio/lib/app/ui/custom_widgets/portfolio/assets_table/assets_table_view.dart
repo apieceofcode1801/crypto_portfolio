@@ -21,20 +21,23 @@ class AssetTableView extends StatelessWidget {
             height: 16,
           ),
           _titleRow(model),
-          Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              for (int i = 0; i < assets.length; i++)
-                Column(
-                  children: [
-                    Divider(
-                      color: Colors.black,
-                    ),
-                    _assetRow(context, model.assets[i])
-                  ],
-                )
-            ],
-          ),
+          Expanded(
+              child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                for (int i = 0; i < assets.length; i++)
+                  Column(
+                    children: [
+                      Divider(
+                        color: Colors.black,
+                      ),
+                      _assetRow(context, model.assets[i], i)
+                    ],
+                  )
+              ],
+            ),
+          )),
         ],
       ),
       onModelReady: (model) => model.loadAssets(assets),
@@ -45,6 +48,13 @@ class AssetTableView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.max,
         children: [
+          Container(
+              width: 44,
+              child: Text(
+                'No',
+                style: Styles.tableTitle,
+                textAlign: TextAlign.center,
+              )),
           Expanded(
               child: Text(
             'Coin',
@@ -122,11 +132,17 @@ class AssetTableView extends StatelessWidget {
         ],
       );
 
-  Widget _assetRow(BuildContext context, Asset asset) => GestureDetector(
+  Widget _assetRow(BuildContext context, Asset asset, index) => GestureDetector(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           mainAxisSize: MainAxisSize.max,
           children: [
+            Container(
+                width: 44,
+                child: Text(
+                  (index + 1).toString(),
+                  textAlign: TextAlign.center,
+                )),
             Expanded(
                 child: Text(
               '${asset.coinSymbol}'.toUpperCase(),
