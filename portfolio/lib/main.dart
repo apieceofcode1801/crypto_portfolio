@@ -1,12 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:portfolio/app/ui/router.dart' as router;
 import 'package:portfolio/app/locator.dart';
 
 void main() {
   setupLocator();
   WidgetsFlutterBinding.ensureInitialized();
+  if (kIsWeb) {
+    setUrlStrategy(PathUrlStrategy());
+  }
   runApp(MyApp());
 }
 
