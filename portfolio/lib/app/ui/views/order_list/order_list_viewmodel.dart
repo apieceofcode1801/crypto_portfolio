@@ -15,4 +15,8 @@ class OrderListViewModel extends BaseViewModel {
     _orders.sortByDate();
     setState(ViewState.Idle);
   }
+
+  Future deleteOrder(Order order) async {
+    await _databaseService.deleteOrder(id: order.id.toString());
+  }
 }

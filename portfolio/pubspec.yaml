@@ -23,6 +23,7 @@ dependencies:
   path_provider:
   #ui
   fl_chart:
+  flutter_slidable:
   #utils
   intl:
   shared_preferences:
