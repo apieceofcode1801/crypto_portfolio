@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/app/datamodels/asset.dart';
 import 'package:portfolio/app/ui/custom_widgets/portfolio/assets_table/assets_table_viewmodel.dart';
 import 'package:portfolio/app/ui/helpers/functions.dart';
+import 'package:portfolio/app/ui/helpers/responsive_view.dart';
 import 'package:portfolio/app/ui/helpers/styles.dart';
 import 'package:portfolio/core/base_view.dart';
 
@@ -19,7 +20,7 @@ class AssetTableView extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          _titleRow(model),
+          _titleRow(context, model),
           Expanded(
               child: SingleChildScrollView(
             child: Column(
@@ -44,19 +45,19 @@ class AssetTableView extends StatelessWidget {
     );
   }
 
-  Widget _titleRow(AssetsTableViewModel model) => Row(
+  Widget _titleRow(BuildContext context, AssetsTableViewModel model) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.max,
         children: [
-          kIsWeb
-              ? Container(
+          ScreenSize.isSizeSmall(context)
+              ? Container()
+              : Container(
                   width: 44,
                   child: Text(
                     'No',
                     style: Styles.tableTitle,
                     textAlign: TextAlign.center,
-                  ))
-              : Container(),
+                  )),
           Expanded(
               child: Text(
             'Coin',
@@ -139,14 +140,14 @@ class AssetTableView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           mainAxisSize: MainAxisSize.max,
           children: [
-            kIsWeb
-                ? Container(
+            ScreenSize.isSizeSmall(context)
+                ? Container()
+                : Container(
                     width: 44,
                     child: Text(
                       (index + 1).toString(),
                       textAlign: TextAlign.center,
-                    ))
-                : Container(),
+                    )),
             Expanded(
                 child: Text(
               '${asset.coinSymbol}'.toUpperCase(),
