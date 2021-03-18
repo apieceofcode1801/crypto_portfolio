@@ -51,3 +51,4 @@ app.*.map.json
 linux
 deploy.sh
 pubspec.lock
+web/index.html
