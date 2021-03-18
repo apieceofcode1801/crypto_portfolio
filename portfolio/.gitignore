@@ -50,3 +50,4 @@ app.*.map.json
 .firebase
 linux
 deploy.sh
+pubspec.lock

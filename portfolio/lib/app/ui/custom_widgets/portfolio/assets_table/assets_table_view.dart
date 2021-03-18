@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/app/datamodels/asset.dart';
 import 'package:portfolio/app/ui/custom_widgets/portfolio/assets_table/assets_table_viewmodel.dart';
@@ -47,13 +48,15 @@ class AssetTableView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.max,
         children: [
-          Container(
-              width: 44,
-              child: Text(
-                'No',
-                style: Styles.tableTitle,
-                textAlign: TextAlign.center,
-              )),
+          kIsWeb
+              ? Container(
+                  width: 44,
+                  child: Text(
+                    'No',
+                    style: Styles.tableTitle,
+                    textAlign: TextAlign.center,
+                  ))
+              : Container(),
           Expanded(
               child: Text(
             'Coin',
@@ -136,12 +139,14 @@ class AssetTableView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Container(
-                width: 44,
-                child: Text(
-                  (index + 1).toString(),
-                  textAlign: TextAlign.center,
-                )),
+            kIsWeb
+                ? Container(
+                    width: 44,
+                    child: Text(
+                      (index + 1).toString(),
+                      textAlign: TextAlign.center,
+                    ))
+                : Container(),
             Expanded(
                 child: Text(
               '${asset.coinSymbol}'.toUpperCase(),
