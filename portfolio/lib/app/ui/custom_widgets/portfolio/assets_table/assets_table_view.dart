@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/app/consts/routes.dart';
 import 'package:portfolio/app/datamodels/asset.dart';
-import 'package:portfolio/app/datamodels/porfolio.dart';
 import 'package:portfolio/app/ui/custom_widgets/portfolio/assets_table/assets_table_viewmodel.dart';
 import 'package:portfolio/app/ui/helpers/functions.dart';
 import 'package:portfolio/app/ui/helpers/styles.dart';
 import 'package:portfolio/core/base_view.dart';
 
 class AssetTableView extends StatelessWidget {
-  final Portfolio portfolio;
+  final Function(int) onEditAsset;
   final List<Asset> assets;
-  const AssetTableView({@required this.portfolio, @required this.assets});
+  const AssetTableView({@required this.assets, @required this.onEditAsset});
   @override
   Widget build(BuildContext context) {
     return BaseView<AssetsTableViewModel>(
@@ -41,6 +39,7 @@ class AssetTableView extends StatelessWidget {
         ],
       ),
       onModelReady: (model) => model.loadAssets(assets),
+      didUpdateWidget: (model) => model.loadAssets(assets),
     );
   }
 
@@ -184,9 +183,6 @@ class AssetTableView extends StatelessWidget {
             ),
           ],
         ),
-        onTap: () {
-          Navigator.pushNamed(context, Routes.asset,
-              arguments: [portfolio.id, asset]);
-        },
+        onTap: () => onEditAsset(index),
       );
 }

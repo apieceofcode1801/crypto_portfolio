@@ -1,3 +1,4 @@
+import 'package:portfolio/app/consts/consts.dart';
 import 'package:portfolio/app/datamodels/asset.dart';
 import 'package:portfolio/app/datamodels/order.dart';
 import 'package:portfolio/app/locator.dart';
@@ -28,6 +29,13 @@ class AssetViewModel extends BaseViewModel {
     _orders = await _dbService.getOrdersForAsset(
         portfolioId: _portfolioId, coinId: _asset.coinId);
     _orders.sortByDate();
+    _asset = _asset.copy(
+        amount: _orders
+            .map((e) => e.type == OrderType.buy ? e.amount : -e.amount)
+            .reduce((value, element) => value + element),
+        total: _orders
+            .map((e) => e.type == OrderType.buy ? e.total : -e.total)
+            .reduce((value, element) => value + element));
     setState(ViewState.Idle);
   }
 }
