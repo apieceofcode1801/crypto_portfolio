@@ -52,3 +52,4 @@ linux
 deploy.sh
 pubspec.lock
 web/index.html
+g_deploy.sh
