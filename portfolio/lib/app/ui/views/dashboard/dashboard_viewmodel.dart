@@ -38,6 +38,9 @@ class DashboardViewModel extends BaseViewModel {
   List<Asset> _assets = [];
   List<Asset> get assets => _assets;
 
+  List<Asset> get activeAssets =>
+      _assets.where((element) => element.marketTotal > 1).toList();
+
   List<Portfolio> _portfolios = [];
   List<Portfolio> get portfolios => _portfolios;
 
@@ -71,8 +74,6 @@ class DashboardViewModel extends BaseViewModel {
                 .map((e) => e.type == OrderType.buy ? e.total : -e.total)
                 .reduce((value, element) => value + element),
             curPrice: _prices[e.key] ?? 0))
-        .toList()
-        .where((element) => element.marketTotal > 1)
         .toList()
           ..sort((a, b) => b.marketTotal.compareTo(a.marketTotal));
     _total = _assets.isEmpty

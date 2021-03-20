@@ -3,6 +3,7 @@ import 'package:portfolio/app/consts/routes.dart';
 import 'package:portfolio/app/datamodels/asset.dart';
 import 'package:portfolio/app/datamodels/order.dart';
 import 'package:portfolio/app/ui/custom_widgets/coin_list/coin_list_view.dart';
+import 'package:portfolio/app/ui/views/alert/alert_view.dart';
 import 'package:portfolio/app/ui/views/asset/asset_view.dart';
 import 'package:portfolio/app/ui/views/auth/auth_view.dart';
 import 'package:portfolio/app/ui/views/edit_order/edit_order_view.dart';
@@ -57,6 +58,11 @@ class Router {
             args.first,
             asset: args.last,
           );
+        });
+      case Routes.alert:
+        return MaterialPageRoute(builder: (_) {
+          final args = settings.arguments as List;
+          return AlertView(portfolioId: args.first, asset: args.last);
         });
       default:
         return MaterialPageRoute(

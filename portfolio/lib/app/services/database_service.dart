@@ -1,3 +1,4 @@
+import 'package:portfolio/app/datamodels/alert.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
 import 'package:portfolio/app/datamodels/order.dart';
 import 'package:portfolio/app/services/apis/db_api_abstract.dart';
@@ -49,5 +50,21 @@ class DatabaseService {
 
   Future<List<Order>> getOrdersForAsset({String portfolioId, String coinId}) {
     return api.getOrdersOfAsset(portfolioId, coinId: coinId);
+  }
+
+  Future addAlert(Alert alert) {
+    return api.addAlert(alert);
+  }
+
+  Future deleteAlert({String id}) {
+    return api.deleteAlert(id: id);
+  }
+
+  Future updateAlert(Alert alert) {
+    return api.updateAlert(alert);
+  }
+
+  Future<List<Alert>> getAlertsForAsset(String portfolioId, {String coinId}) {
+    return api.getAlertsForAsset(portfolioId, coinId: coinId);
   }
 }

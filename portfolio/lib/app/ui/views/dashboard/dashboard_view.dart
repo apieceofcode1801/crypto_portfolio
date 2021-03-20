@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/app/consts/routes.dart';
+import 'package:portfolio/app/ui/custom_widgets/portfolio/assets_chart/assets_chart_view.dart';
 import 'package:portfolio/app/ui/custom_widgets/portfolio/assets_table/assets_table_view.dart';
 import 'package:portfolio/app/ui/custom_widgets/portfolio/portfolio_title/portfolio_title_view.dart';
+import 'package:portfolio/app/ui/helpers/ui_helpers.dart';
 import 'package:portfolio/app/ui/views/dashboard/dashboard_viewmodel.dart';
 import 'package:portfolio/core/base_view.dart';
 import 'package:portfolio/core/enums/viewstate.dart';
@@ -27,8 +29,8 @@ class DashboardView extends StatelessWidget {
                 ? Center(
                     child: SizedBox(
                     child: CircularProgressIndicator(),
-                    width: 32,
-                    height: 32,
+                    width: 24,
+                    height: 24,
                   ))
                 : IconButton(
                     icon: Icon(Icons.refresh),
@@ -93,37 +95,36 @@ class DashboardView extends StatelessWidget {
                           right: 0,
                         ),
                         //Temporary remove for fixing web error
-                        // model.assets.isEmpty
-                        //     ? Container()
-                        //     : Positioned(
-                        //         child: IconButton(
-                        //           icon: Icon(Icons.pie_chart),
-                        //           onPressed: () {
-                        //             showWidgetDialog(
-                        //                 context: context,
-                        //                 child: SingleChildScrollView(
-                        //                   child: AssetsChartView(
-                        //                     assets: model.assets,
-                        //                   ),
-                        //                 ),
-                        //                 title: 'Assets pie chart');
-                        //           },
-                        //         ),
-                        //         bottom: 0,
-                        //         left: 0,
-                        //       )
+                        model.assets.isEmpty
+                            ? Container()
+                            : Positioned(
+                                child: IconButton(
+                                  icon: Icon(Icons.pie_chart),
+                                  onPressed: () {
+                                    showWidgetDialog(
+                                        context: context,
+                                        child: SingleChildScrollView(
+                                          child: AssetsChartView(
+                                              assets: model.activeAssets),
+                                        ),
+                                        title: 'Assets pie chart');
+                                  },
+                                ),
+                                bottom: 0,
+                                left: 0,
+                              )
                       ],
                     ),
                   ),
                   model.assets.isNotEmpty
                       ? Expanded(
                           child: AssetTableView(
-                            assets: model.assets,
+                            assets: model.activeAssets,
                             onEditAsset: (index) async {
                               await Navigator.pushNamed(context, Routes.asset,
                                   arguments: [
                                     portfolio.id,
-                                    model.assets[index]
+                                    model.activeAssets[index]
                                   ]);
                               model.loadData();
                             },

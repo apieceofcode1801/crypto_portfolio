@@ -1,3 +1,4 @@
+import 'package:portfolio/app/datamodels/alert.dart';
 import 'package:portfolio/app/datamodels/order.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
 
@@ -13,4 +14,9 @@ abstract class DbApiAbstract {
   Future addPortfolio({Portfolio portfolio});
   Future updatePortfolio(String id, Portfolio portfolio);
   Future deletePortfolio(String id);
+
+  Future addAlert(Alert alert);
+  Future deleteAlert({String id});
+  Future updateAlert(Alert alert);
+  Future<List<Alert>> getAlertsForAsset(String portfolioId, {String coinId});
 }

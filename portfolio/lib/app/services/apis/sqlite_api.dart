@@ -1,3 +1,4 @@
+import 'package:portfolio/app/datamodels/alert.dart';
 import 'package:portfolio/app/datamodels/order.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
 import 'package:portfolio/app/services/apis/db_api_abstract.dart';
@@ -94,6 +95,30 @@ class SqliteApi extends DbApiAbstract {
   @override
   Future<List<Order>> getOrdersOfAsset(String portfolioId, {String coinId}) {
     // TODO: implement getOrdersOfAsset
+    throw UnimplementedError();
+  }
+
+  @override
+  Future addAlert(Alert alert) {
+    // TODO: implement addAlert
+    throw UnimplementedError();
+  }
+
+  @override
+  Future deleteAlert({String id}) {
+    // TODO: implement deleteAlert
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Alert>> getAlertsForAsset(String portfolioId, {String coinId}) {
+    // TODO: implement getAlertsForAsset
+    throw UnimplementedError();
+  }
+
+  @override
+  Future updateAlert(Alert alert) {
+    // TODO: implement updateAlert
     throw UnimplementedError();
   }
 }

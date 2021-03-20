@@ -23,7 +23,10 @@ class AssetView extends StatelessWidget {
               actions: [
                 IconButton(
                   icon: Icon(Icons.add_alert),
-                  onPressed: () async {},
+                  onPressed: () async {
+                    Navigator.pushNamed(context, Routes.alert,
+                        arguments: [portfolioId, asset]);
+                  },
                 ),
                 IconButton(
                     icon: Icon(Icons.add),

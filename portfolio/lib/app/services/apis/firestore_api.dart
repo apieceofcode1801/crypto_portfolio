@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:portfolio/app/datamodels/alert.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
 import 'package:portfolio/app/datamodels/order.dart';
 import 'package:portfolio/app/services/apis/db_api_abstract.dart';
@@ -6,6 +7,7 @@ import 'package:portfolio/app/services/apis/db_api_abstract.dart';
 class FirestoreApi extends DbApiAbstract {
   final _portfolios = FirebaseFirestore.instance.collection('_portfolios');
   final _orders = FirebaseFirestore.instance.collection('orders');
+  final _alerts = FirebaseFirestore.instance.collection('alerts');
   @override
   Future addOrder(Order order) {
     final ref = _orders.doc();
@@ -88,5 +90,40 @@ class FirestoreApi extends DbApiAbstract {
         .get()
         .then((value) =>
             value.docs.map((e) => Order.fromJson(e.data())).toList());
+  }
+
+  @override
+  Future addAlert(Alert alert) {
+    final ref = _alerts.doc();
+    alert.id = ref.id;
+    return ref.set(alert.toJson());
+  }
+
+  @override
+  Future deleteAlert({String id}) {
+    return _alerts
+        .doc(id)
+        .delete()
+        .then((value) => print('Alert deleted'))
+        .catchError((err) => print('Alert deleted fail: $err'));
+  }
+
+  @override
+  Future<List<Alert>> getAlertsForAsset(String portfolioId, {String coinId}) {
+    return _alerts
+        .where('portfolio_id', isEqualTo: portfolioId)
+        .where('coin_id', isEqualTo: coinId)
+        .get()
+        .then((value) =>
+            value.docs.map((e) => Alert.fromJson(e.data())).toList());
+  }
+
+  @override
+  Future updateAlert(Alert alert) {
+    return _orders
+        .doc(alert.id)
+        .set(alert.toJson())
+        .then((value) => print('Alert updated'))
+        .catchError((err) => print('Alert updated error: $err'));
   }
 }
