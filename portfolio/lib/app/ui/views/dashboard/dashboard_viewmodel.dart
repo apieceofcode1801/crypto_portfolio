@@ -99,7 +99,7 @@ class DashboardViewModel extends BaseViewModel {
   }
 
   void refresh() {
-    Timer.periodic(Duration(minutes: 1), (timer) async {
+    Timer.periodic(Duration(minutes: 15), (timer) async {
       loadData();
     });
   }
