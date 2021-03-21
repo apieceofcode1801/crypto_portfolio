@@ -93,9 +93,11 @@ class SqliteApi extends DbApiAbstract {
   }
 
   @override
-  Future<List<Order>> getOrdersOfAsset(String portfolioId, {String coinId}) {
-    // TODO: implement getOrdersOfAsset
-    throw UnimplementedError();
+  Future<List<Order>> getOrdersOfAsset(String portfolioId,
+      {String coinId}) async {
+    List<Map> results = await _database.rawQuery(
+        'SELECT * FROM $OrderTableName WHERE portfolio_id = $portfolioId AND coin_id = $coinId');
+    return results.map((e) => Order.fromJson(e)).toList();
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/app/consts/routes.dart';
 import 'package:portfolio/app/ui/views/startup/startup_viewmodel.dart';
@@ -26,11 +27,15 @@ class StartupView extends StatelessWidget {
         );
       },
       onModelReady: (model) async {
-        final hasUser = await model.initialise();
-        if (hasUser) {
-          Navigator.pushReplacementNamed(context, Routes.dashboard);
+        if (kIsWeb) {
+          final hasUser = await model.initialise();
+          if (hasUser) {
+            Navigator.pushReplacementNamed(context, Routes.dashboard);
+          } else {
+            Navigator.pushReplacementNamed(context, Routes.auth);
+          }
         } else {
-          Navigator.pushReplacementNamed(context, Routes.auth);
+          Navigator.pushReplacementNamed(context, Routes.dashboard);
         }
       },
     );
