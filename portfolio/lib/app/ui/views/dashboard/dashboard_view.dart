@@ -94,7 +94,6 @@ class DashboardView extends StatelessWidget {
                           top: 0,
                           right: 0,
                         ),
-                        //Temporary remove for fixing web error
                         model.assets.isEmpty
                             ? Container()
                             : Positioned(
@@ -120,12 +119,9 @@ class DashboardView extends StatelessWidget {
                       ? Expanded(
                           child: AssetTableView(
                             assets: model.activeAssets,
-                            onEditAsset: (index) async {
+                            onEditAsset: (asset) async {
                               await Navigator.pushNamed(context, Routes.asset,
-                                  arguments: [
-                                    portfolio.id,
-                                    model.activeAssets[index]
-                                  ]);
+                                  arguments: [portfolio.id, asset]);
                               model.loadData();
                             },
                           ),

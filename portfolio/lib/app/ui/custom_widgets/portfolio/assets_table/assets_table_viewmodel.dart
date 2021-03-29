@@ -48,6 +48,8 @@ class AssetsTableViewModel extends BaseViewModel {
 
   void loadAssets(List<Asset> assets) {
     _assets = assets;
+    _sortBy = SortBy.totalDown;
+    notifyListeners();
   }
 }
 

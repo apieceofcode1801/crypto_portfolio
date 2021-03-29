@@ -8,7 +8,7 @@ import 'package:portfolio/app/ui/helpers/styles.dart';
 import 'package:portfolio/core/base_view.dart';
 
 class AssetTableView extends StatelessWidget {
-  final Function(int) onEditAsset;
+  final Function(Asset) onEditAsset;
   final List<Asset> assets;
   const AssetTableView({@required this.assets, @required this.onEditAsset});
   @override
@@ -189,6 +189,6 @@ class AssetTableView extends StatelessWidget {
             ),
           ],
         ),
-        onTap: () => onEditAsset(index),
+        onTap: () => onEditAsset(asset),
       );
 }
