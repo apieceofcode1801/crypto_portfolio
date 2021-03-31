@@ -1,92 +1,70 @@
-import 'package:portfolio/app/datamodels/order.dart';
+import 'package:portfolio/app/datamodels/alert.dart';
 import 'package:portfolio/app/datamodels/porfolio.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:sqflite/sqlite_api.dart';
-
-import 'database_service_helper.dart';
-
-const String DB_NAME = 'portfolio.sqlite';
-const String OrderTableName = 'orders';
-const String PortfolioTableName = 'portfolios';
+import 'package:portfolio/app/datamodels/order.dart';
+import 'package:portfolio/app/services/apis/db_api_abstract.dart';
 
 class DatabaseService {
-  Database _database;
+  final DbApiAbstract api;
 
-  Future initialise() async {
-    _database =
-        await openDatabase(DB_NAME, version: 1, onCreate: (db, version) async {
-      await db.execute(createPortfolioTableQuery);
-      await db.execute(createOrderTableQuery);
-    });
+  DatabaseService({this.api});
+
+  Future addOrder(Order order) {
+    return api.addOrder(order);
   }
 
-  Future<List<Order>> getOrders() async {
-    List<Map> orderResults = await _database.query(OrderTableName);
-    return orderResults.map((e) => Order.fromJson(e)).toList();
+  Future addPortfolio({Portfolio portfolio}) {
+    return api.addPortfolio(portfolio: portfolio);
   }
 
-  Future<List<Order>> getOrdersOfPortfolio(int id) async {
-    List<Map> results = await _database
-        .rawQuery('SELECT * FROM $OrderTableName WHERE portfolio_id = $id');
-    return results.map((e) => Order.fromJson(e)).toList();
+  Future deleteOrder({String id}) {
+    return api.deleteOrder(id: id);
   }
 
-  Future<int> addOrder(Order order) async {
-    try {
-      return await _database.insert(OrderTableName, order.toJson());
-    } catch (e) {
-      print('Coudn\'t insert the order: $e');
-      return 0;
-    }
+  Future deletePortfolio(String id) {
+    return api.deletePortfolio(id);
   }
 
-  Future updateOrder({int id, Order order}) async {
-    try {
-      await _database.update(OrderTableName, order.toJson(),
-          where: 'id = ?', whereArgs: [id]);
-    } catch (e) {
-      print('Could not update order: $e');
-    }
+  Future<List<Order>> getOrders() {
+    return api.getOrders();
   }
 
-  Future deleteOrder({int id}) async {
-    try {
-      await _database.delete(OrderTableName, where: 'id = ?', whereArgs: [id]);
-    } catch (e) {
-      print('Could not delete order: $e');
-    }
+  Future<List<Order>> getOrdersOfPortfolio(String id) {
+    return api.getOrdersOfPortfolio(id);
   }
 
-  Future<List<Portfolio>> getPortfolios() async {
-    List<Map> portfolioResults = await _database.query(PortfolioTableName);
-    return portfolioResults.map((e) => Portfolio.fromJson(e)).toList();
+  Future<List<Portfolio>> getPortfolios({String userId}) {
+    return api.getPortfolios(userId: userId);
   }
 
-  Future addPortfolio({Portfolio portfolio}) async {
-    try {
-      await _database.insert(PortfolioTableName, portfolio.toJson());
-    } catch (e) {
-      print('Could not add portfolio');
-    }
+  Future initialise() {
+    return api.initialise();
   }
 
-  Future updatePortfolio(int id, Portfolio portfolio) async {
-    try {
-      await _database.update(PortfolioTableName, portfolio.toJson(),
-          where: 'id = ?', whereArgs: [id]);
-    } catch (e) {
-      print('Could not update portfolio: $e');
-    }
+  Future updateOrder({String id, Order order}) {
+    return api.updateOrder(id: id, order: order);
   }
 
-  Future deletePortfolio(int id) async {
-    try {
-      await _database
-          .delete(PortfolioTableName, where: 'id = ?', whereArgs: [id]);
-      await _database
-          .delete(OrderTableName, where: 'portfolio_id = ?', whereArgs: [id]);
-    } catch (e) {
-      print('Could not delete portfolio: $e');
-    }
+  Future updatePortfolio(String id, Portfolio portfolio) {
+    return api.updatePortfolio(id, portfolio);
+  }
+
+  Future<List<Order>> getOrdersForAsset({String portfolioId, String coinId}) {
+    return api.getOrdersOfAsset(portfolioId, coinId: coinId);
+  }
+
+  Future addAlert(Alert alert) {
+    return api.addAlert(alert);
+  }
+
+  Future deleteAlert({String id}) {
+    return api.deleteAlert(id: id);
+  }
+
+  Future updateAlert(Alert alert) {
+    return api.updateAlert(alert);
+  }
+
+  Future<List<Alert>> getAlertsForAsset(String portfolioId, {String coinId}) {
+    return api.getAlertsForAsset(portfolioId, coinId: coinId);
   }
 }

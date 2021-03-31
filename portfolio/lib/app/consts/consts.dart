@@ -6,3 +6,7 @@ class OrderType {
 class CoinId {
   static const String bitcoin = 'bitcoin';
 }
+
+class LocalKeys {
+  static const userId = 'user_id';
+}

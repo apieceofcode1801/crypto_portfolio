@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/app/datamodels/asset.dart';
 import 'package:portfolio/app/datamodels/coin.dart';
 import 'package:portfolio/app/datamodels/order.dart';
 import 'package:portfolio/app/ui/custom_widgets/coin_list/coin_list_view.dart';
@@ -8,9 +9,11 @@ import 'package:portfolio/core/base_view.dart';
 import 'package:portfolio/core/enums/viewstate.dart';
 
 class EditOrderView extends StatelessWidget {
-  final int portfolioId;
+  final String portfolioId;
+  final Asset asset;
   final Order order;
-  EditOrderView({Key key, this.portfolioId, this.order}) : super(key: key);
+  EditOrderView({Key key, this.portfolioId, this.order, this.asset})
+      : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -70,25 +73,33 @@ class EditOrderView extends StatelessWidget {
                       const SizedBox(
                         height: 16,
                       ),
-                      TextFormField(
-                        readOnly: true,
-                        decoration: InputDecoration(hintText: 'Select coin'),
-                        onTap: () async {
-                          Coin coin = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => CoinListView()));
-                          if (coin != null) {
-                            model.setCurrentCoin(coin);
-                          }
-                        },
-                        validator: (value) =>
-                            value.isEmpty ? 'Please select a coin' : null,
-                        controller: model.coinController,
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
+                      asset != null
+                          ? Container()
+                          : Column(
+                              children: [
+                                TextFormField(
+                                  readOnly: true,
+                                  decoration:
+                                      InputDecoration(hintText: 'Select coin'),
+                                  onTap: () async {
+                                    Coin coin = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => CoinListView()));
+                                    if (coin != null) {
+                                      model.setCurrentCoin(coin);
+                                    }
+                                  },
+                                  validator: (value) => value.isEmpty
+                                      ? 'Please select a coin'
+                                      : null,
+                                  controller: model.coinController,
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                )
+                              ],
+                            ),
                       DropdownButtonFormField(
                         value: model.orderType,
                         items: [
@@ -136,7 +147,7 @@ class EditOrderView extends StatelessWidget {
                       TextButton(
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
-                              await model.submitOrder();
+                              await model.submitOrder(asset: asset);
                               Navigator.pop(context);
                             }
                           },

@@ -9,9 +9,14 @@ class OrderListViewModel extends BaseViewModel {
   List<Order> _orders = [];
   List<Order> get orders => _orders;
 
-  Future loadOrders(int portfolioId) async {
+  Future loadOrders([String portfolioId]) async {
     setState(ViewState.Busy);
     _orders = await _databaseService.getOrdersOfPortfolio(portfolioId);
+    _orders.sortByDate();
     setState(ViewState.Idle);
+  }
+
+  Future deleteOrder(Order order) async {
+    await _databaseService.deleteOrder(id: order.id.toString());
   }
 }

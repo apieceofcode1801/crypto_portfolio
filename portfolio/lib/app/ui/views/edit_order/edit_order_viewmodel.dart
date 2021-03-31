@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:portfolio/app/consts/consts.dart';
+import 'package:portfolio/app/datamodels/asset.dart';
 import 'package:portfolio/app/datamodels/coin.dart';
 import 'package:portfolio/app/datamodels/order.dart';
 import 'package:portfolio/app/locator.dart';
@@ -9,8 +9,8 @@ import 'package:portfolio/core/base_viewmodel.dart';
 import 'package:portfolio/core/enums/viewstate.dart';
 
 class EditOrderViewModel extends BaseViewModel {
-  int _portfolioId;
-  int get portfolioId => _portfolioId;
+  String _portfolioId;
+  String get portfolioId => _portfolioId;
 
   Coin _currentCoin;
   Coin get currentCoin => _currentCoin;
@@ -44,7 +44,7 @@ class EditOrderViewModel extends BaseViewModel {
     }
   }
 
-  void setPortfolioId(int id) {
+  void setPortfolioId(String id, {String coinId}) {
     _portfolioId = id;
   }
 
@@ -54,31 +54,28 @@ class EditOrderViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future submitOrder() async {
+  Future submitOrder({Asset asset}) async {
     setState(ViewState.Busy);
     final date = _dateController.text;
     if (_order == null) {
       final order = Order(
-          coinId: _currentCoin.id,
-          coinSymbol: _currentCoin.symbol,
+          coinId: _currentCoin != null ? _currentCoin.id : asset.coinId,
+          coinSymbol:
+              _currentCoin != null ? _currentCoin.symbol : asset.coinSymbol,
           type: orderType,
-          amount: orderType == OrderType.buy
-              ? double.parse(_amountController.text)
-              : -double.parse(_amountController.text),
+          amount: double.parse(_amountController.text),
           price: double.parse(_priceController.text),
           portfolioId: portfolioId,
           date: date);
       await _databaseService.addOrder(order);
     } else {
       await _databaseService.updateOrder(
-          id: _order.id,
+          id: _order.id.toString(),
           order: _order.copy(
               coinId: _currentCoin?.id,
               coinSymbol: _currentCoin?.symbol,
               type: orderType,
-              amount: orderType == OrderType.buy
-                  ? double.parse(_amountController.text)
-                  : -double.parse(_amountController.text),
+              amount: double.parse(_amountController.text),
               price: double.parse(_priceController.text),
               date: date));
     }
@@ -87,12 +84,13 @@ class EditOrderViewModel extends BaseViewModel {
 
   Future deleteOrder() async {
     setState(ViewState.Busy);
-    await _databaseService.deleteOrder(id: _order.id);
+    await _databaseService.deleteOrder(id: _order.id.toString());
     setState(ViewState.Idle);
   }
 
   void setSelectedDate(DateTime date) {
-    _dateController.text = DateFormat(DateFormat.YEAR_MONTH_DAY).format(date);
+    _dateController.text =
+        DateFormat(DateFormat.YEAR_NUM_MONTH_DAY).format(date);
     notifyListeners();
   }
 

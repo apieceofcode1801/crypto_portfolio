@@ -44,3 +44,12 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+#addition
+
+.firebase
+linux
+deploy.sh
+pubspec.lock
+web/index.html
+g_deploy.sh

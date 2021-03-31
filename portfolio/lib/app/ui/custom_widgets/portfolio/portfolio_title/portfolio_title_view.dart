@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/app/extensions/extensions.dart';
+import 'package:portfolio/app/ui/helpers/functions.dart';
 
 class PortfolioTitleView extends StatelessWidget {
   final String title;
@@ -36,7 +36,7 @@ class PortfolioTitleView extends StatelessWidget {
                   'Total: ',
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                 ),
-                Text('${total.toStringAsFixed(2).numberWithComma()} \$')
+                Text('${formatNumber(total)} \$')
               ],
             ),
             const SizedBox(
@@ -49,7 +49,7 @@ class PortfolioTitleView extends StatelessWidget {
                   'Market total: ',
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                 ),
-                Text('${marketTotal.toStringAsFixed(2).numberWithComma()} \$ '),
+                Text('${formatNumber(marketTotal)} \$ '),
                 Text(
                   '(${profit.toStringAsFixed(2)} %)',
                   style:

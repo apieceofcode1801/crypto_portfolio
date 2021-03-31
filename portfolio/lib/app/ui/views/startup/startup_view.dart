@@ -1,24 +1,42 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/app/consts/routes.dart';
 import 'package:portfolio/app/ui/views/startup/startup_viewmodel.dart';
 import 'package:portfolio/core/base_view.dart';
-import 'package:portfolio/core/enums/viewstate.dart';
 
 class StartupView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<StartupViewModel>(
       builder: (context, model, child) {
-        return Container(
-          color: Colors.amber,
-          child: model.state == ViewState.Busy
-              ? Center(child: CircularProgressIndicator())
-              : Container(),
+        return Scaffold(
+          body: Container(
+            color: Colors.white,
+            child: Container(
+              child: Center(
+                child: Text(
+                  'portfolio PRO 2021'.toUpperCase(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Colors.amber),
+                ),
+              ),
+            ),
+          ),
         );
       },
       onModelReady: (model) async {
-        await model.initialise();
-        Navigator.pushReplacementNamed(context, Routes.dashboard);
+        if (kIsWeb) {
+          final hasUser = await model.initialise();
+          if (hasUser) {
+            Navigator.pushReplacementNamed(context, Routes.dashboard);
+          } else {
+            Navigator.pushReplacementNamed(context, Routes.auth);
+          }
+        } else {
+          Navigator.pushReplacementNamed(context, Routes.dashboard);
+        }
       },
     );
   }

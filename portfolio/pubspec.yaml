@@ -8,8 +8,12 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  flutter_web_plugins:
+    sdk: flutter
   flutter:
     sdk: flutter
+  firebase_core: "^0.7.0"
+  cloud_firestore: "^0.16.0+1"
   cupertino_icons: ^1.0.2
   provider:
   get_it:
@@ -19,8 +23,10 @@ dependencies:
   path_provider:
   #ui
   fl_chart:
+  flutter_slidable:
   #utils
   intl:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:

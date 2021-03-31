@@ -1,15 +1,15 @@
-import 'package:portfolio/app/consts/consts.dart';
+import 'package:intl/intl.dart';
 
 class Order {
-  int id;
+  String id;
   int type;
   String coinId;
   String coinSymbol;
   String date;
   double amount;
   double price;
-  int portfolioId;
-  double get total => type == OrderType.buy ? amount * price : -amount * price;
+  String portfolioId;
+  double get total => amount * price;
 
   Order(
       {this.id,
@@ -22,7 +22,7 @@ class Order {
       this.portfolioId});
 
   Order.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'].toString();
     type = json['type'];
     coinId = json['coin_id'];
     coinSymbol = json['coin_symbol'];
@@ -63,5 +63,12 @@ class Order {
         amount: amount ?? this.amount,
         price: price ?? this.price,
         portfolioId: portfolioId ?? this.portfolioId);
+  }
+}
+
+extension OrderListExtension on List<Order> {
+  void sortByDate() {
+    DateFormat format = DateFormat('M/d/yyyy');
+    this.sort((a, b) => format.parse(b.date).compareTo(format.parse(a.date)));
   }
 }
