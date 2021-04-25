@@ -174,6 +174,16 @@ class AssetTitleView extends StatelessWidget {
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text(
+              'Amount: ',
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            ),
+            Text('${asset.amount}'),
+          ]),
+          const SizedBox(
+            height: 8,
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Text(
               'Avg. price: ',
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             ),

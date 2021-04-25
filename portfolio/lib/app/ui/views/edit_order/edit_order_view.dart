@@ -126,8 +126,6 @@ class EditOrderView extends StatelessWidget {
                         decoration: InputDecoration(hintText: 'Enter price'),
                         validator: (value) =>
                             value.isEmpty ? 'Invalid price' : null,
-                        keyboardType:
-                            TextInputType.numberWithOptions(decimal: true),
                         controller: model.priceController,
                       ),
                       const SizedBox(
@@ -137,8 +135,6 @@ class EditOrderView extends StatelessWidget {
                         decoration: InputDecoration(hintText: 'Enter amount'),
                         validator: (value) =>
                             value.isEmpty ? 'Invalid amount' : null,
-                        keyboardType:
-                            TextInputType.numberWithOptions(decimal: true),
                         controller: model.amountController,
                       ),
                       const SizedBox(
